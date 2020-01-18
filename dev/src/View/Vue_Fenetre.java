@@ -438,6 +438,9 @@ public class Vue_Fenetre extends JFrame implements Observer {
 				bouton_playPause.setText("Lecture");
 			
 			
+			volume_slider.setValue(model.getVolume());
+			
+			
 			if (model.isChangingDimension() && model.isThreeDimension()) {
 				
 				this.remove(vue_visualisateur2D);

@@ -44,6 +44,24 @@ public class Controller_Clavier extends Controller implements KeyListener {
 			return;
 			
 		}
+
+		//Si touche +, augmente le volume
+		if(e.getKeyCode() == KeyEvent.VK_ADD) {
+
+			model.increaseVolume();
+			
+			return;
+
+		}
+
+		//Si touche -, diminue le volume
+		if(e.getKeyCode() == KeyEvent.VK_SUBTRACT) {
+
+			model.decreaseVolume();
+			
+			return;
+
+		}
 		
 		// si le fichier n'est pas lu alors on affiche une erreur
 		if (!model.isFileLoaded()) {
@@ -83,5 +101,4 @@ public class Controller_Clavier extends Controller implements KeyListener {
 	 * 	Non implémenter
 	 */
 	public void keyTyped(KeyEvent arg0) {}
-
 }

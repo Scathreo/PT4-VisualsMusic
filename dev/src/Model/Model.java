@@ -21,6 +21,10 @@ import java.util.Observer;
  */
 public class Model extends Observable implements Observer {
 
+	private static final int VOLUME_MAX = 200;
+
+	private static final int VOLUME_MIN = 0;
+
 	/**
 	 * L'epaisseur des formes 2D et 3D
 	 */
@@ -1023,7 +1027,36 @@ public class Model extends Observable implements Observer {
 		
 		this.volume = volume;
 		
-		this.musique.setVol( (float) volume / 100 );
+		if (musique != null)
+			this.musique.setVol( (float) volume / 100 );
+		
+	}
+
+	//TODO
+	public void increaseVolume() {
+
+		if (volume <= Model.VOLUME_MAX - 2)
+			this.setVolume(volume + 2);
+		
+		else
+			volume = Model.VOLUME_MAX;
+
+		this.setChanged();
+		this.notifyObservers();
+		
+	}
+
+	//TODO
+	public void decreaseVolume() {
+
+		if (volume >= Model.VOLUME_MIN + 2)
+			this.setVolume(volume - 2);
+		
+		else
+			volume = Model.VOLUME_MIN;
+
+		this.setChanged();
+		this.notifyObservers();
 		
 	}
 }

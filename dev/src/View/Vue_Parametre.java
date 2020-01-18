@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
+import controller.Controller_Clavier;
 import controller.Controller_Fenetre;
 import model.Model;
 
@@ -419,7 +420,7 @@ public class Vue_Parametre extends JFrame implements Observer {
 		super();
 
 		this.addWindowListener(new Controller_Fenetre(model));
-
+		
 		/*
 		 * Creation des composants
 		 */

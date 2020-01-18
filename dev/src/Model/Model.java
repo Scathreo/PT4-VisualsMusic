@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -977,7 +977,7 @@ public class Model extends Observable implements Observer {
 	/**
 	 * Arrete l'application si true
 	 */
-	public void setQuit(boolean quit) {
+	public void quitApp(boolean quit) {
 
 		if (quit)
 			System.exit(0);

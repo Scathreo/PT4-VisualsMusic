@@ -1,10 +1,10 @@
-package Controller;
+package controller;
 
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import Model.Model;
+import model.Model;
 /**
  * Classe qui permettra de gèrer le son lorsque 
  * l'utilisateur le modifie sur le slider

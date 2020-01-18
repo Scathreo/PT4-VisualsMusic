@@ -1,10 +1,10 @@
-package Controller;
+package controller;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.FileNotFoundException;
 
-import Model.Model;
+import model.Model;
 
 /**
  * Classe implémentant KeyListener
@@ -39,7 +39,7 @@ public class Controller_Clavier extends Controller implements KeyListener {
 		//si touche ECHAP, quitte l'app
 		if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 
-			model.setQuit(true);
+			model.quitApp(true);
 			
 			return;
 			

@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 import java.awt.event.ActionEvent;
 
@@ -10,7 +10,7 @@ import javax.swing.JMenuItem;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
-import Model.Model;
+import model.Model;
 
 /**
  * Classe implémentant ActionListener et MenuListener

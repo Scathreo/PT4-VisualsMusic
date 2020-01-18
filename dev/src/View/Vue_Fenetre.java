@@ -1,4 +1,4 @@
-package View;
+package view;
 
 
 import java.awt.BorderLayout;
@@ -25,14 +25,15 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JSlider;
 
-import Controller.Controller_Bouton_Musique;
-import Controller.Controller_Clavier;
-import Controller.Controller_Menu;
-import Controller.Controller_Slider;
-import Model.Model;
-import View.Vue_2D;
-import View.Vue_3D;
-import View.Vue_Erreur;
+import controller.Controller_Bouton_Musique;
+import controller.Controller_Clavier;
+import controller.Controller_Fenetre;
+import controller.Controller_Menu;
+import controller.Controller_Slider;
+import model.Model;
+import view.Vue_2D;
+import view.Vue_3D;
+import view.Vue_Erreur;
 
 /** 
  * Classe représentant l'IG, composé 
@@ -236,20 +237,7 @@ public class Vue_Fenetre extends JFrame implements Observer {
 
 
 		//Ajout des controlleur
-		this.addWindowListener(new WindowAdapter() {
-			//Ajout d'un message de confirmation d'arret
-
-			public void windowClosing(WindowEvent windowEvent) {
-
-				if (JOptionPane.showConfirmDialog(null, 
-						"Êtes-vous sûr de vouloir fermer l'application ?",
-						"Fermer l'application ?",
-						JOptionPane.YES_NO_OPTION,
-						JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
-					System.exit(0);
-
-			}
-		});
+		this.addWindowListener(new Controller_Fenetre(model));
 		
 		this.addKeyListener(new Controller_Clavier(model));
 		
@@ -258,7 +246,7 @@ public class Vue_Fenetre extends JFrame implements Observer {
 
 		this.frameCenter();
 		this.setTitle("Visuals Music");
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setResizable(false);
 		this.setVisible(true);
 		this.pack();

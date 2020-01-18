@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -23,7 +23,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
-import Model.Model;
+import controller.Controller_Fenetre;
+import model.Model;
 
 /**
  * Classe Définissant une fenetre essentiellement composé
@@ -417,22 +418,7 @@ public class Vue_Parametre extends JFrame implements Observer {
 
 		super();
 
-		this.addWindowListener(new WindowAdapter() {
-
-			public void windowClosing(WindowEvent windowEvent) {
-
-				if (JOptionPane.showConfirmDialog(null, 
-						"Tout éléments non sauvegardé ne sera pas pris en compte"
-								+ "\n\n"
-								+ "Êtes-vous sur de vouloir continuer ?",
-								"Fermer les paramètres ?", 
-								JOptionPane.YES_NO_OPTION,
-								JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) 
-
-					model.setPrintSettings(false);
-				
-			}
-		});
+		this.addWindowListener(new Controller_Fenetre(model));
 
 		/*
 		 * Creation des composants
@@ -994,7 +980,7 @@ public class Vue_Parametre extends JFrame implements Observer {
 		//Ne rend pas la fenêtre visible quand on la créé
 
 		this.setTitle("Visuals Music - Settings");
-		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE );
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setResizable(false);
 		this.pack();
 

@@ -1,9 +1,8 @@
-package App;
+package app;
 
-import Model.Model;
-
-import View.Vue_Fenetre;
-import View.Vue_Parametre;
+import model.Model;
+import view.Vue_Fenetre;
+import view.Vue_Parametre;
 
 /**
  * Classe lançant l'application Visual's Music

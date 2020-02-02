@@ -26,7 +26,7 @@ public class Pricipale_VisualsMusic {
 		Vue_Parametre settings = new Vue_Parametre(model);
 		
 		model.addObserver(settings);
-
+		
 	}
 
 }

@@ -48,10 +48,24 @@ public class Controller_Menu extends Controller implements ActionListener, MenuL
 		if (menuItem.getText().equals("Ouvrir un fichier...")) {
 			
 			JFileChooser fc = new JFileChooser();
+			fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			int valeur_de_retour = fc.showOpenDialog(null);
 
 			if (valeur_de_retour == JFileChooser.APPROVE_OPTION)
 				model.setFichier(fc.getSelectedFile());
+			
+			return;
+			
+		}
+
+		if (menuItem.getText().equals("Ouvrir un dossier...")) {
+			
+			JFileChooser fc = new JFileChooser();
+			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			int valeur_de_retour = fc.showOpenDialog(null);
+
+			if (valeur_de_retour == JFileChooser.APPROVE_OPTION)
+				model.setDirectory(fc.getCurrentDirectory());
 			
 			return;
 			

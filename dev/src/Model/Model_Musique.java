@@ -38,6 +38,8 @@ import flanagan.math.FourierTransform;
  */
 public class Model_Musique extends Observable implements Runnable {
 
+	public static final int RESET_CODE = 100;
+
 	/**
 	 * Ligne permettant l'écoute audio
 	 * Sort en son, ce qu'il y a écrit dedans
@@ -168,7 +170,9 @@ public class Model_Musique extends Observable implements Runnable {
 	 */
 	public void setVol(float volume) {
 
-		FloatControl control = (FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
+		FloatControl control = 
+				(FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
+		
 		control.setValue((float) (20 * Math.log10(volume)));
 
 	}
@@ -348,6 +352,9 @@ public class Model_Musique extends Observable implements Runnable {
 			line.close();
 			line = null;
 			load = false;
+			
+			setChanged();
+			notifyObservers(Model_Musique.RESET_CODE);
 
 		}
 	}	

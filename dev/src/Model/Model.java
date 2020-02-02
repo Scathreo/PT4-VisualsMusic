@@ -278,6 +278,9 @@ public class Model extends Observable implements Observer {
 
 	//TODO
 	private int currentFileIndex;
+	
+	//TODO
+	private boolean loop;
 
 	/**
 	 * Constructeur de la classe
@@ -302,6 +305,7 @@ public class Model extends Observable implements Observer {
 		pause = true;
 
 		random = false;
+		loop = false;
 
 		changingDimension = false;
 
@@ -312,7 +316,7 @@ public class Model extends Observable implements Observer {
 	}
 
 	//TODO Play methode
-	
+
 	/**
 	 * Permet de lire un fichier audio tous en permettant de
 	 * garder la main sur l'application grâce au multithreading
@@ -321,8 +325,20 @@ public class Model extends Observable implements Observer {
 
 		if (musiqueThread == null || pause) {
 
-			if (!musique.isLoad())
-				musique.initialisation(fichiers[currentFileIndex]);	//TODO temporaire [0]
+			if (!musique.isLoad()) {
+
+				if (currentFileIndex >= fichiers.length) {
+
+					if (this.isLoop())
+						currentFileIndex = 0;
+					
+					else return;
+					
+				}
+				
+				musique.initialisation(fichiers[currentFileIndex]);
+				
+			}
 
 			musiqueThread = new Thread(musique);
 			musiqueThread.start();
@@ -353,6 +369,26 @@ public class Model extends Observable implements Observer {
 
 			}
 		}
+	}
+
+	//TODO
+	public void next() {
+
+		this.stop();	//currentFileIndex + 1
+
+		this.lectureFichier();
+
+	}
+
+	//TODO
+	public void previous() {
+
+		this.currentFileIndex -= 2;
+
+		this.stop();	//currentFileIndex + 1
+
+		this.lectureFichier();
+
 	}
 
 	/**
@@ -408,6 +444,10 @@ public class Model extends Observable implements Observer {
 			return;
 
 		}
+
+		for (File f : fichiers) {
+			System.out.println(f.getPath());
+		}
 	}
 
 	/**
@@ -429,6 +469,11 @@ public class Model extends Observable implements Observer {
 	public void stop() {
 
 		musique.reset();
+
+		if (musiqueThread != null)
+			musiqueThread.interrupt();
+
+		musiqueThread = null;
 
 	}
 
@@ -504,9 +549,13 @@ public class Model extends Observable implements Observer {
 
 		if (arg != null) {
 
-			if (arg.equals(Model_Musique.RESET_CODE))
-				currentFileIndex ++;
+			if (arg.equals(Model_Musique.RESET_CODE)) {
+				
+				this.currentFileIndex ++;
+				
+				this.lectureFichier();
 
+			}
 		}
 
 		setChanged();
@@ -1155,5 +1204,39 @@ public class Model extends Observable implements Observer {
 
 		this.directory = directory;
 
+	}
+
+	/**
+	 * TODO
+	 * @return the random
+	 */
+	public boolean isRandom() {
+
+		return random;
+
+	}
+
+	/**
+	 * TODO
+	 * @param random the random to set
+	 */
+	public void setRandom(boolean random) {
+
+		this.random = random;
+
+	}
+
+	/**
+	 * @return the loop
+	 */
+	public boolean isLoop() {
+		return loop;
+	}
+
+	/**
+	 * @param loop the loop to set
+	 */
+	public void setLoop(boolean loop) {
+		this.loop = loop;
 	}
 }

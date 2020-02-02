@@ -17,14 +17,14 @@ import model.Model;
  * Goodwin
  * 	Création et implémentation de la classe entière
  */
-public class Controller_Bouton_Musique extends Controller implements ActionListener {
+public class Controller_Bouton extends Controller implements ActionListener {
 
 	/**
 	 * Constructeur utilisant le Constructeur Parent
 	 * 
 	 * @param model   : Instanciant le Model
 	 */
-	public Controller_Bouton_Musique(Model model) {
+	public Controller_Bouton(Model model) {
 
 		super(model);
 
@@ -57,6 +57,48 @@ public class Controller_Bouton_Musique extends Controller implements ActionListe
 			
 			return;
 
+		}
+		
+		//check le bouton random
+		if (bouton.getText().equals("Random")) {
+			
+			if (model.isRandom()) {
+				
+				model.setRandom(false);
+				
+				//TODO SUppression effet actif
+				
+			}
+			
+			else {
+				
+				model.setRandom(true);
+				
+				//TODO ajout effet actif
+				
+			}
+			
+		}
+		
+		//check le bouton loop
+		if (bouton.getText().equals("Loop")) {
+			
+			if (model.isLoop()) {
+				
+				model.setLoop(false);
+				
+				//TODO SUppression effet actif
+				
+			}
+			
+			else {
+				
+				model.setLoop(true);
+				
+				//TODO ajout effet actif
+				
+			}
+			
 		}
 		
 		// si le fichier n'est pas lu alors on affiche une erreur
@@ -99,6 +141,24 @@ public class Controller_Bouton_Musique extends Controller implements ActionListe
 
 			return;
 
+		}
+		
+		//COntrole le bouton next
+		if (bouton.getText().equals("Suivant")) {
+			
+			model.next();
+			
+			return;
+			
+		}
+		
+		//COntrole le bouton next
+		if (bouton.getText().equals("Précédent")) {
+			
+			model.previous();
+			
+			return;
+			
 		}
 	}
 }

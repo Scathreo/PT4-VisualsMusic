@@ -25,7 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JSlider;
 
-import controller.Controller_Bouton_Musique;
+import controller.Controller_Bouton;
 import controller.Controller_Clavier;
 import controller.Controller_Fenetre;
 import controller.Controller_Menu;
@@ -57,6 +57,26 @@ public class Vue_Fenetre extends JFrame implements Observer {
 	///////////////////////////////////////
 	////////////// Attributs //////////////
 	///////////////////////////////////////
+
+	/**
+	 * TODO
+	 */	
+	private JButton bouton_next;
+
+	/**
+	 * TODO
+	 */	
+	private JButton bouton_random;
+
+	/**
+	 * TODO
+	 */	
+	private JButton bouton_loop;
+
+	/**
+	 * TODO
+	 */	
+	private JButton bouton_previous;
 
 	/**
 	 * Bouton permettant de mettre en marche la musique
@@ -150,6 +170,11 @@ public class Vue_Fenetre extends JFrame implements Observer {
 	 * Permet d'ouvrir un fichier
 	 */
 	private JMenuItem menu_fichier_ouvrir;
+
+	/**
+	 * TODO
+	 */
+	private JMenuItem menu_dossier_ouvrir;
 
 	/**
 	 * Panneau principale 	/	Visualiseur
@@ -270,6 +295,7 @@ public class Vue_Fenetre extends JFrame implements Observer {
 
 		menu_fichier = new JMenu("Fichier");
 		menu_fichier_ouvrir = new JMenuItem("Ouvrir un fichier...");
+		menu_dossier_ouvrir = new JMenuItem("Ouvrir un dossier...");
 
 		menu_affichage = new JMenu("Affichage");
 		menu_affichage_2D = new JRadioButtonMenuItem("2D");
@@ -288,8 +314,9 @@ public class Vue_Fenetre extends JFrame implements Observer {
 		
 
 		//Ajout des Controller
-		
+
 		menu_fichier_ouvrir.addActionListener(new Controller_Menu(model));
+		menu_dossier_ouvrir.addActionListener(new Controller_Menu(model));
 
 		menu_affichage_2D.addActionListener(new Controller_Menu(model));
 		menu_affichage_3D.addActionListener(new Controller_Menu(model));
@@ -298,8 +325,9 @@ public class Vue_Fenetre extends JFrame implements Observer {
 		
 
 		//Ajout des éléments
-		
+
 		menu_fichier.add(menu_fichier_ouvrir);
+		menu_fichier.add(menu_dossier_ouvrir);
 
 		menu_affichage_dimension.add(menu_affichage_2D);
 		menu_affichage_dimension.add(menu_affichage_3D);
@@ -326,6 +354,10 @@ public class Vue_Fenetre extends JFrame implements Observer {
 		volume_texte 		= new JLabel("Volume :");
 		volume_slider 		= new JSlider(0,100);
 		gbc 				= new GridBagConstraints();
+		bouton_loop			= new JButton("Loop");
+		bouton_random	 	= new JButton("Random");
+		bouton_previous 	= new JButton("Précédent");
+		bouton_next 		= new JButton("Suivant");
 		bouton_playPause 	= new JButton("Lecture");
 		bouton_stop 		= new JButton("Stop");
 		bouton_pleinEcran	= new JButton("Plein Ecran");
@@ -335,11 +367,13 @@ public class Vue_Fenetre extends JFrame implements Observer {
 		
 		panel_bouton.setBackground(new Color(87, 73, 73, 50));
 
+		bouton_loop.setPreferredSize(new Dimension(100,25));
+		bouton_random.setPreferredSize(new Dimension(100,25));
 		bouton_playPause.setPreferredSize(new Dimension(100,50));
-
 		bouton_stop.setPreferredSize(new Dimension(100,50));
-
 		bouton_pleinEcran.setPreferredSize(new Dimension(100,50));
+		bouton_previous.setPreferredSize(new Dimension(100,50));
+		bouton_next.setPreferredSize(new Dimension(100,50));
 
 		volume_slider.setPreferredSize(new Dimension(100,50));
 		volume_slider.setMinimum(0);
@@ -351,32 +385,49 @@ public class Vue_Fenetre extends JFrame implements Observer {
 
 		
 		//Ajout des Controller
-		
-		bouton_playPause.addActionListener(new Controller_Bouton_Musique(model));
-		bouton_stop.addActionListener(new Controller_Bouton_Musique(model));
-		bouton_pleinEcran.addActionListener(new Controller_Bouton_Musique(model));
+
+		bouton_loop.addActionListener(new Controller_Bouton(model));
+		bouton_random.addActionListener(new Controller_Bouton(model));
+		bouton_previous.addActionListener(new Controller_Bouton(model));
+		bouton_next.addActionListener(new Controller_Bouton(model));
+		bouton_playPause.addActionListener(new Controller_Bouton(model));
+		bouton_stop.addActionListener(new Controller_Bouton(model));
+		bouton_pleinEcran.addActionListener(new Controller_Bouton(model));
 		volume_slider.addChangeListener(new Controller_Slider(model));
 		
 		// Ajout des élément dans le panel
 		
-		gbc.gridx = 3;
+		gbc.gridx = 5;
 		gbc.gridy = 0;
 		panel_bouton.add(volume_texte, gbc);
 
 		gbc.gridy=1;
-		gbc.insets = insets_panelSud ;
 		panel_bouton.add(volume_slider, gbc);
 
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.gridheight = 2;
-		panel_bouton.add(bouton_playPause, gbc);
+		panel_bouton.add(bouton_previous, gbc);
 
 		gbc.gridx = 1;
+		panel_bouton.add(bouton_next, gbc);
+		
+		gbc.gridx = 2;
+		gbc.insets = insets_panelSud ;
+		panel_bouton.add(bouton_playPause, gbc);
+
+		gbc.gridx = 3;
 		panel_bouton.add(bouton_stop, gbc);
 
-		gbc.gridx = 2;
+		gbc.gridx = 4;
 		panel_bouton.add(bouton_pleinEcran, gbc);
+
+		gbc.gridx = 6;
+		gbc.gridheight = 1;
+		panel_bouton.add(bouton_random, gbc);
+		
+		gbc.gridy = 1;
+		panel_bouton.add(bouton_loop, gbc);
 		
 	}
 

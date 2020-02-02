@@ -3,6 +3,7 @@ package controller;
 import java.awt.event.ActionEvent;
 
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
@@ -46,36 +47,36 @@ public class Controller_Menu extends Controller implements ActionListener, MenuL
 		JMenuItem menuItem = (JMenuItem) arg0.getSource();		
 
 		if (menuItem.getText().equals("Ouvrir un fichier...")) {
-			
+
 			JFileChooser fc = new JFileChooser();
 			fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			int valeur_de_retour = fc.showOpenDialog(null);
 
 			if (valeur_de_retour == JFileChooser.APPROVE_OPTION)
 				model.setFichier(fc.getSelectedFile());
-			
+
 			return;
-			
+
 		}
 
 		if (menuItem.getText().equals("Ouvrir un dossier...")) {
-			
+
 			JFileChooser fc = new JFileChooser();
 			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			int valeur_de_retour = fc.showOpenDialog(null);
 
 			if (valeur_de_retour == JFileChooser.APPROVE_OPTION)
-				model.setDirectory(fc.getCurrentDirectory());
-			
+				model.setFichier(fc.getSelectedFile());
+
 			return;
-			
+
 		}
 
 		if (menuItem.getText().equals("2D") && menuItem.isSelected()) {
 
 			model.setIsThreeDimension(false);
 			model.setChangingDimension(true);
-			
+
 			return;
 		}
 
@@ -83,7 +84,7 @@ public class Controller_Menu extends Controller implements ActionListener, MenuL
 
 			model.setIsThreeDimension(true);
 			model.setChangingDimension(true);
-			
+
 			return;
 
 		}		
@@ -113,7 +114,7 @@ public class Controller_Menu extends Controller implements ActionListener, MenuL
 		if (menu.getText().equals("Paramètres")) {
 
 			model.setPrintSettings(true);
-			
+
 			return;
 
 		}

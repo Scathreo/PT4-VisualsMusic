@@ -1,0 +1,26 @@
+Analyse sons:
+  aigus
+  grave
+    Affichage de chaque coté de l'écran (un coté grave, l'autre aigu). Barre sur le bord+1 moyenne de tous les sons. Barre sur le bord max du son aigu/grave
+    PB: affichage pas en fonction du temps
+  moyenne des fréquence
+  Max des fréquences
+  Min des fréquences
+  volume
+  Timbre ?
+  Harmonique ?
+  fréquence random
+
+  Plusieurs modes prédéfini
+    Brusque
+      Un coup max, un coup min
+    Vanilla 2.0
+      Max
+    Vanilla 3.0
+      Min
+    Vanilla 1.0
+      Moyenne
+    
+  
+
+Fond en blanc 2D/3D

@@ -379,8 +379,6 @@ public class Model extends Observable implements Observer {
 			if (tab_tampon[random_index] == null) {
 
 				tab_tampon[random_index] = fichiers[index];
-				
-				System.out.println(tab_tampon[random_index].getPath());
 
 				index ++;
 
@@ -566,12 +564,12 @@ public class Model extends Observable implements Observer {
 		else freq = new double[1];
 		
 		if (max_freq) freq[0] = musique.getFrequenceMax();
-		if (min_freq) freq[0] = musique.getFrequenceMin();
 		if (moy_freq) freq[0] = musique.getFrequenceMoy();
+		if (min_freq) freq[0] = musique.getFrequenceMin();
 
 		for (int i = 0; i < freq.length; i ++) {
 			
-			freq[i] = 	(freq[i] * amplitude / 100)
+			freq[i] = (freq[i] * amplitude / 100)
 				/ musique.getAudioFormat().getFrameRate();
 			
 		}

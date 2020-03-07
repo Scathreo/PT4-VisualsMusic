@@ -231,9 +231,9 @@ public class Model_Musique extends Observable implements Runnable {
 
 		try {
 
-			double complexMax = Double.MIN_VALUE;
-			double complexMin = Double.MAX_VALUE;
-			double somme = 0;
+			double complexMax;
+			double complexMin;
+			double somme;
 
 			byte bytes[] = new byte[audioFormat.getSampleSizeInBits()*1024];	//taille de l'echantillon * 1024
 			int bytesRead = 0;
@@ -256,6 +256,13 @@ public class Model_Musique extends Observable implements Runnable {
 
 					FFT.setData(comp);
 					FFT.transform();
+
+					complexMax = Double.MIN_VALUE;
+					complexMin = Double.MAX_VALUE;
+					frequenceMax = 0;
+					frequenceMin = 0;
+					frequenceMoy = 0;
+					somme = 0;
 					
 					Complex[] tableau_complexe_temporaire = FFT.getTransformedDataAsComplex();
 
@@ -274,7 +281,7 @@ public class Model_Musique extends Observable implements Runnable {
 
 					frequenceMax = complexMax;
 					frequenceMin = complexMin;
-					frequenceMoy = somme / tableau_complexe_temporaire.length;
+					frequenceMoy = somme / (double) tableau_complexe_temporaire.length;
 
 					setChanged();
 					notifyObservers();

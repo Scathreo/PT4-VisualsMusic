@@ -83,6 +83,18 @@ public class Vue_2D extends JPanel implements Observer {
 	private Color[] couleurs_forme;
 
 	/**
+	 * Un tableau contenant un nombre de couleur égal
+	 * au nombre de rectangle
+	 * 
+	 * Contiendra N-Couleur qui seront utilisé pour
+	 * tracer l'intérieur de chacun des cubes
+	 * 
+	 * Utilisé si l'utilisateur n'entre aucune
+	 * couleurs spécifiques
+	 */
+	private Color[] couleurs_forme_back;
+
+	/**
 	 * Une couleur unique pour tracer l'extérieur des cubes
 	 * 
 	 * Utilisé si l'utilisateur entre une
@@ -105,6 +117,7 @@ public class Vue_2D extends JPanel implements Observer {
 	 * 	N'affiche pas d'espace entre les formes
 	 */
 	private int espacement;
+
 
 	/**
 	 * Constructeur de la classe
@@ -218,11 +231,6 @@ public class Vue_2D extends JPanel implements Observer {
 		// On trace le rectangle
 		// la couleur correspond au dedans du rectangle
 
-		g.setColor(new Color(
-				(float) Math.random(),
-				(float) Math.random(),
-				(float) Math.random()));
-
 		if (ratioFrequenceForeground[numero_rectangle] != 0) {
 
 			if (couleur_forme == null && couleur_trait == null) { //si pas de couleur unique
@@ -238,6 +246,18 @@ public class Vue_2D extends JPanel implements Observer {
 						(int) (taille_fenetre_y / 2-ratioFrequenceForeground[numero_rectangle]*taille_fenetre_y / 2/2),
 						epaisseur_rectangle,
 						(int) (ratioFrequenceForeground[numero_rectangle]*taille_fenetre_y/2));
+
+				g.setColor(couleurs_forme_back[numero_rectangle]);
+				g.fillRect(x,
+						(int) (taille_fenetre_y / 2-ratioFrequenceBackground[numero_rectangle]*taille_fenetre_y / 2/2),
+						epaisseur_rectangle,
+						(int) (ratioFrequenceBackground[numero_rectangle]*taille_fenetre_y/2));
+
+				g.setColor(couleurs_trait_back[numero_rectangle]);
+				g.drawRect(x,
+						(int) (taille_fenetre_y / 2-ratioFrequenceBackground[numero_rectangle]*taille_fenetre_y / 2/2),
+						epaisseur_rectangle,
+						(int) (ratioFrequenceBackground[numero_rectangle]*taille_fenetre_y/2));
 
 			}
 

@@ -178,8 +178,8 @@ public class Vue_3D extends GLCanvas implements Observer {
 					}
 				}
 
-				cubes.setRatioFrequenceForeground(ratioFrequenceForeground);
-				cubes.setRatioFrequenceBackground(ratioFrequenceBackground);
+				//cubes.setRatioFrequenceForeground(ratioFrequenceForeground);
+				//cubes.setRatioFrequenceBackground(ratioFrequenceBackground);
 
 			}
 		}

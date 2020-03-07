@@ -362,11 +362,21 @@ public class Model extends Observable implements Observer {
 			if (tab_tampon[random_index] == null) {
 
 				tab_tampon[random_index] = fichiers[index];
+				
+				System.out.println(tab_tampon[random_index].getPath());
 
 				index ++;
 
 			}
+			
+			if (index == taille_tab_fichiers) processing = false;
+			
 		}
+		
+		fichiers = tab_tampon;
+		
+		
+		
 	}
 
 	//TODO
@@ -418,11 +428,11 @@ public class Model extends Observable implements Observer {
 				//TODO un peu barbare => voir les .wav
 				fichiers = file.listFiles();
 
-			}
-
-			if (random) {
-
-				this.setRandomList();
+				if (random) {
+	
+					this.setRandomList();
+	
+				}
 
 			}
 
@@ -1211,6 +1221,7 @@ public class Model extends Observable implements Observer {
 	public boolean isRandom() {
 
 		return random;
+		
 
 	}
 
@@ -1222,19 +1233,29 @@ public class Model extends Observable implements Observer {
 
 		this.random = random;
 
+		setChanged();
+		notifyObservers();
+		
 	}
 
 	/**
 	 * @return the loop
 	 */
 	public boolean isLoop() {
+		
 		return loop;
+		
 	}
 
 	/**
 	 * @param loop the loop to set
 	 */
 	public void setLoop(boolean loop) {
+		
 		this.loop = loop;
+
+		setChanged();
+		notifyObservers();
+		
 	}
 }

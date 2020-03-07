@@ -213,6 +213,16 @@ public class Vue_Fenetre extends JFrame implements Observer {
 	 */
 	private Dimension seizeNeuvieme = new Dimension(800,450); //rapport de 16:9
 
+	/**
+	 * Couleur Rouge
+	 */
+	private final Color red = new Color(1.0f, 0.0f, 0.0f); 
+	
+	/**
+	 * Couleur Verte
+	 */
+	private final Color green = new Color(0.0f, 1.0f, 0.0f); 
+
 
 
 	///////////////////////////////////////
@@ -367,6 +377,9 @@ public class Vue_Fenetre extends JFrame implements Observer {
 		volume_slider.setMaximum(200);
 		volume_slider.setPaintTicks(true);
 		volume_slider.setPaintLabels(true);
+		
+		bouton_loop.setBackground(red);
+		bouton_random.setBackground(red);
 
 		bouton_pleinEcran.setEnabled(false);
 
@@ -474,6 +487,16 @@ public class Vue_Fenetre extends JFrame implements Observer {
 				bouton_playPause.setText("Pause");
 			else
 				bouton_playPause.setText("Lecture");
+			
+			if (model.isRandom())
+				bouton_random.setBackground(green);
+			else
+				bouton_random.setBackground(red);
+			
+			if (model.isLoop())
+				bouton_loop.setBackground(green);
+			else
+				bouton_loop.setBackground(red);
 			
 			
 			volume_slider.setValue(model.getVolume());

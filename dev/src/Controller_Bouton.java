@@ -62,17 +62,15 @@ public class Controller_Bouton extends Controller implements ActionListener {
 				
 				model.setRandom(false);
 				
-				//TODO SUppression effet actif
-				
 			}
 			
 			else {
 				
 				model.setRandom(true);
 				
-				//TODO ajout effet actif
-				
 			}
+			
+			return;
 			
 		}
 		
@@ -83,17 +81,15 @@ public class Controller_Bouton extends Controller implements ActionListener {
 				
 				model.setLoop(false);
 				
-				//TODO SUppression effet actif
-				
 			}
 			
 			else {
 				
 				model.setLoop(true);
 				
-				//TODO ajout effet actif
-				
 			}
+			
+			return;
 			
 		}
 		

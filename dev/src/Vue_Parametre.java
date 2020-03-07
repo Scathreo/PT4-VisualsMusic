@@ -1,5 +1,3 @@
-package view;
-
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -22,10 +20,6 @@ import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
-
-import controller.Controller_Clavier;
-import controller.Controller_Fenetre;
-import model.Model;
 
 /**
  * Classe Définissant une fenetre essentiellement composé

@@ -1,13 +1,9 @@
-package view;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JPanel;
-
-import model.Model;
 
 /**
  * Classe représentant le visualisateur de l'IG

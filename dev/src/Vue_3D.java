@@ -1,5 +1,3 @@
-package view;
-
 import java.util.Observable;
 import java.util.Observer;
 
@@ -8,8 +6,6 @@ import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
 
 import com.jogamp.opengl.util.FPSAnimator;
-
-import model.Model;
 
 /**
  * Classe représentant le visualisateur de l'IG

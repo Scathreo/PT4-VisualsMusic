@@ -1,12 +1,8 @@
-package controller;
-
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
-import model.Model;
 
 //TODO
 public class Controller_Fenetre extends Controller implements WindowListener {

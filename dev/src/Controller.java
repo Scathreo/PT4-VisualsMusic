@@ -1,7 +1,3 @@
-package controller;
-
-import model.Model;
-
 /**
  * Classe permettant de faciliter la structure MVC
  * Définit un Model qui sera commun à tout les Controller

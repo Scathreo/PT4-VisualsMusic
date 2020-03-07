@@ -1,6 +1,3 @@
-package view;
-
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -24,16 +21,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JSlider;
-
-import controller.Controller_Bouton;
-import controller.Controller_Clavier;
-import controller.Controller_Fenetre;
-import controller.Controller_Menu;
-import controller.Controller_Slider;
-import model.Model;
-import view.Vue_2D;
-import view.Vue_3D;
-import view.Vue_Erreur;
 
 /** 
  * Classe représentant l'IG, composé 

@@ -1,5 +1,3 @@
-package view;
-
 import java.io.FileNotFoundException;
 import java.util.Observable;
 import java.util.Observer;
@@ -7,8 +5,6 @@ import java.util.Observer;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JOptionPane;
-
-import model.Model;
 
 /**
  * Classe affichant un message d'erreur quand il y en a une

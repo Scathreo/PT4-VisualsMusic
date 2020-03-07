@@ -23,9 +23,14 @@ public class Vue_3D extends GLCanvas implements Observer {
 	private int nombre_rectangle;
 
 	/**
-	 * Contient tout les ratios qui seront affiché
+	 * Contient tout les ratios qui seront affiché au premier plan
 	 */
-	private double[] ratioFrequence;
+	private double[] ratioFrequenceForeground;
+
+	/**
+	 * Contient tout les ratios qui seront affiché en fond
+	 */
+	private double[] ratioFrequenceBackground;
 
 	/**
 	 * Outils utilisé pour l'affichage 3D
@@ -60,8 +65,9 @@ public class Vue_3D extends GLCanvas implements Observer {
 		super(Vue_3D.CAPABILITIES);
 
 		this.nombre_rectangle = 4;
-		
-		this.ratioFrequence = new double[4];
+
+		this.ratioFrequenceForeground = new double[4];
+		this.ratioFrequenceBackground = new double[4];
 
 		this.cubes = new Forme_Cube();
 
@@ -157,19 +163,23 @@ public class Vue_3D extends GLCanvas implements Observer {
 
 						try {
 
-							ratioFrequence[index] = ratioFrequence[index + 1];
+							ratioFrequenceForeground[index] = ratioFrequenceForeground[index + 1];
+							ratioFrequenceBackground[index] = ratioFrequenceBackground[index + 1];
 
 						}
 
 						catch (IndexOutOfBoundsException e) {
-
-							ratioFrequence[index] = model.getRatioFrequence();
+							
+							if (model.getRatioFrequence().length > 1)
+								ratioFrequenceBackground[index] = model.getRatioFrequence()[1];
+							ratioFrequenceForeground[index] = model.getRatioFrequence()[0];
 
 						}
 					}
 				}
 
-				cubes.setRatioFrequence(ratioFrequence);
+				cubes.setRatioFrequenceForeground(ratioFrequenceForeground);
+				cubes.setRatioFrequenceBackground(ratioFrequenceBackground);
 
 			}
 		}

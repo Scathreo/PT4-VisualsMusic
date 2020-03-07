@@ -280,6 +280,18 @@ public class Model extends Observable implements Observer {
 	//TODO
 	private boolean loop;
 
+	//TODO
+	private boolean tone_freq;
+
+	//TODO
+	private boolean max_freq;
+
+	//TODO
+	private boolean min_freq;
+
+	//TODO
+	private boolean moy_freq;
+
 	/**
 	 * Constructeur de la classe
 	 * 
@@ -299,6 +311,11 @@ public class Model extends Observable implements Observer {
 		autoplay 			= true;
 		couleur_2d_random	= true;
 		couleur_3d_random	= true;
+		
+		max_freq = true;
+		min_freq = false;
+		moy_freq = false;
+		tone_freq = false;
 
 		pause = true;
 
@@ -535,13 +552,31 @@ public class Model extends Observable implements Observer {
 	 * @return le ration de la fréquense actuel
 	 * par rapport à celle du fichier
 	 */
-	public double getRatioFrequence() {
+	public double[] getRatioFrequence() {
 
-		double freq = 0;
+		double[] freq;
+		
+		if (tone_freq) {
+			
+			freq = new double[2];
+			freq[0] = musique.getFrequenceMax();
+			freq[1] = musique.getFrequenceMin();
+			
+		}
+		else freq = new double[1];
+		
+		if (max_freq) freq[0] = musique.getFrequenceMax();
+		if (min_freq) freq[0] = musique.getFrequenceMin();
+		if (moy_freq) freq[0] = musique.getFrequenceMoy();
 
-		freq = 	(musique.getFrequence() 
-				* amplitude / 100)
+		for (int i = 0; i < freq.length; i ++) {
+			
+			freq[i] = 	(freq[i] * amplitude / 100)
 				/ musique.getAudioFormat().getFrameRate();
+			
+		}
+		
+		
 
 		return freq;
 

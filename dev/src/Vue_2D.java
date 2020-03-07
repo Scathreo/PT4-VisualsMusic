@@ -52,10 +52,14 @@ public class Vue_2D extends JPanel implements Observer {
 	private int nombre_rectangle;
 
 	/**
-	 * Contient tout les ratios qui seront affiché (barres)
-	 * Taille définit dans méthode update
+	 * Contient tout les ratios qui seront affiché au premier plan
 	 */
-	private double[] ratioFrequence;
+	private double[] ratioFrequenceForeground;
+
+	/**
+	 * Contient tout les ratios qui seront affiché en fond
+	 */
+	private double[] ratioFrequenceBackground;
 
 	/**
 	 * Un tableau contenant un nombre de couleur égal
@@ -124,7 +128,7 @@ public class Vue_2D extends JPanel implements Observer {
 
 		this.epaisseur_ligne = 2;
 
-		this.ratioFrequence = new double[nombre_rectangle];
+		this.ratioFrequenceForeground = new double[nombre_rectangle];
 
 		this.espacement = 0;
 
@@ -219,21 +223,21 @@ public class Vue_2D extends JPanel implements Observer {
 				(float) Math.random(),
 				(float) Math.random()));
 
-		if (ratioFrequence[numero_rectangle] != 0) {
+		if (ratioFrequenceForeground[numero_rectangle] != 0) {
 
 			if (couleur_forme == null && couleur_trait == null) { //si pas de couleur unique
 
 				g.setColor(couleurs_forme[numero_rectangle]);
 				g.fillRect(x,
-						(int) (taille_fenetre_y / 2-ratioFrequence[numero_rectangle]*taille_fenetre_y / 2/2),
+						(int) (taille_fenetre_y / 2-ratioFrequenceForeground[numero_rectangle]*taille_fenetre_y / 2/2),
 						epaisseur_rectangle,
-						(int) (ratioFrequence[numero_rectangle]*taille_fenetre_y/2));
+						(int) (ratioFrequenceForeground[numero_rectangle]*taille_fenetre_y/2));
 
 				g.setColor(couleurs_trait[numero_rectangle]);
 				g.drawRect(x,
-						(int) (taille_fenetre_y / 2-ratioFrequence[numero_rectangle]*taille_fenetre_y / 2/2),
+						(int) (taille_fenetre_y / 2-ratioFrequenceForeground[numero_rectangle]*taille_fenetre_y / 2/2),
 						epaisseur_rectangle,
-						(int) (ratioFrequence[numero_rectangle]*taille_fenetre_y/2));
+						(int) (ratioFrequenceForeground[numero_rectangle]*taille_fenetre_y/2));
 
 			}
 
@@ -241,15 +245,15 @@ public class Vue_2D extends JPanel implements Observer {
 
 				g.setColor(couleur_forme);
 				g.fillRect(x,
-						(int) (taille_fenetre_y / 2-ratioFrequence[numero_rectangle]*taille_fenetre_y / 2/2),
+						(int) (taille_fenetre_y / 2-ratioFrequenceForeground[numero_rectangle]*taille_fenetre_y / 2/2),
 						epaisseur_rectangle,
-						(int) (ratioFrequence[numero_rectangle]*taille_fenetre_y/2));
+						(int) (ratioFrequenceForeground[numero_rectangle]*taille_fenetre_y/2));
 
 				g.setColor(couleur_trait);
 				g.drawRect(x,
-						(int) (taille_fenetre_y / 2-ratioFrequence[numero_rectangle]*taille_fenetre_y / 2/2),
+						(int) (taille_fenetre_y / 2-ratioFrequenceForeground[numero_rectangle]*taille_fenetre_y / 2/2),
 						epaisseur_rectangle,
-						(int) (ratioFrequence[numero_rectangle]*taille_fenetre_y/2));
+						(int) (ratioFrequenceForeground[numero_rectangle]*taille_fenetre_y/2));
 
 			}
 		}
@@ -280,22 +284,22 @@ public class Vue_2D extends JPanel implements Observer {
 						(taille_fenetre_x - 2 * margin_forme_fenetre)
 						- 2 * epaisseur_rectangle)
 						/ (epaisseur_rectangle);
-				
+
 				if (espacement != 0) {
-					
+
 					int plage = 
 							(taille_fenetre_x - 2 * margin_forme_fenetre)
 							- 2 * epaisseur_rectangle;
-					
+
 					int i  = nombre_rectangle * epaisseur_rectangle
 							+ (nombre_rectangle - 1 ) * espacement;
-					
+
 					while (i > plage) {
-						
+
 						i = i - epaisseur_rectangle - espacement;
-						
+
 						nombre_rectangle --;
-						
+
 					}
 				}
 
@@ -344,18 +348,34 @@ public class Vue_2D extends JPanel implements Observer {
 
 				}
 
-				double[] sauvegarde_rationFrequence = ratioFrequence;
-				ratioFrequence = new double[nombre_rectangle];
+				double[] sauvegarde_rationFrequenceFor = ratioFrequenceForeground;
+				ratioFrequenceForeground = new double[nombre_rectangle];
 
-				if (sauvegarde_rationFrequence != null) {
+				double[] sauvegarde_rationFrequenceBac = ratioFrequenceBackground;
+				ratioFrequenceBackground = new double[nombre_rectangle];
+
+				if (sauvegarde_rationFrequenceFor != null) {
 
 					int taille_min = 
-							sauvegarde_rationFrequence.length > ratioFrequence.length ? 
-									ratioFrequence.length : sauvegarde_rationFrequence.length;
-					
+							sauvegarde_rationFrequenceFor.length > ratioFrequenceForeground.length ?
+							ratioFrequenceForeground.length : sauvegarde_rationFrequenceFor.length;
+
 					for (int index = 0; index < taille_min; index ++) {
 
-						ratioFrequence[index] = sauvegarde_rationFrequence[index];
+						ratioFrequenceForeground[index] = sauvegarde_rationFrequenceFor[index];
+
+					}
+				}
+
+				if (sauvegarde_rationFrequenceBac != null) {
+
+					int taille_min = 
+							sauvegarde_rationFrequenceBac.length > ratioFrequenceBackground.length ?
+									ratioFrequenceBackground.length : sauvegarde_rationFrequenceBac.length;
+
+					for (int index = 0; index < taille_min; index ++) {
+
+						ratioFrequenceBackground[index] = sauvegarde_rationFrequenceBac[index];
 
 					}
 				}
@@ -368,13 +388,16 @@ public class Vue_2D extends JPanel implements Observer {
 
 						try {
 
-							ratioFrequence[index] = ratioFrequence[index + 1];
+							ratioFrequenceForeground[index] = ratioFrequenceForeground[index + 1];
+							ratioFrequenceBackground[index] = ratioFrequenceBackground[index + 1];
 
 						}
 
 						catch (IndexOutOfBoundsException e) {
 
-							ratioFrequence[index] = model.getRatioFrequence();
+							if (model.getRatioFrequence().length > 1)
+								ratioFrequenceBackground[index] = model.getRatioFrequence()[1];
+							ratioFrequenceForeground[index] = model.getRatioFrequence()[0];
 
 						}
 					}

@@ -64,7 +64,25 @@ public class Model_Musique extends Observable implements Runnable {
 	 * Une FFT est réaliser préalablement pour obtenir 
 	 * toutes les fréquences d'un son
 	 */
-	private double frequence;
+	private double frequenceMax;
+
+	/**
+	 * Fréquence transmise aux vues en prenant la 
+	 * fréquence minimale d'un son
+	 * 
+	 * Une FFT est réaliser préalablement pour obtenir 
+	 * toutes les fréquences d'un son
+	 */
+	private double frequenceMin;
+
+	/**
+	 * Fréquence transmise aux vues en prenant la 
+	 * fréquence moyenne d'un son
+	 * 
+	 * Une FFT est réaliser préalablement pour obtenir 
+	 * toutes les fréquences d'un son
+	 */
+	private double frequenceMoy;
 
 	/**
 	 * Fast Fourier Tranformation / Tranformé rapide de Fourrier
@@ -213,6 +231,10 @@ public class Model_Musique extends Observable implements Runnable {
 
 		try {
 
+			double complexMax = Double.MIN_VALUE;
+			double complexMin = Double.MAX_VALUE;
+			double somme = 0;
+
 			byte bytes[] = new byte[audioFormat.getSampleSizeInBits()*1024];	//taille de l'echantillon * 1024
 			int bytesRead = 0;
 
@@ -234,21 +256,25 @@ public class Model_Musique extends Observable implements Runnable {
 
 					FFT.setData(comp);
 					FFT.transform();
-					frequence = 0;
+					
 					Complex[] tableau_complexe_temporaire = FFT.getTransformedDataAsComplex();
-
-					double complexMax = Double.MIN_VALUE;
 
 					for (int index_dans_tableau = 0; 
 							index_dans_tableau < tableau_complexe_temporaire.length;
 							index_dans_tableau ++) {
 
 						double complexTemporaire = Math.abs(tableau_complexe_temporaire[index_dans_tableau].getReal());
-						if (complexMax < complexTemporaire) complexMax = complexTemporaire ;
-
+						
+						if (complexMax < complexTemporaire) complexMax = complexTemporaire;
+						if (complexMin > complexTemporaire) complexMin = complexTemporaire; 
+						
+						somme += complexTemporaire;
+						
 					}
 
-					frequence = complexMax;
+					frequenceMax = complexMax;
+					frequenceMin = complexMin;
+					frequenceMoy = somme / tableau_complexe_temporaire.length;
 
 					setChanged();
 					notifyObservers();
@@ -298,13 +324,35 @@ public class Model_Musique extends Observable implements Runnable {
 	}
 
 	/**
-	 * Permet d'obtenir la fréquence actuelle du fichier audio
+	 * Permet d'obtenir la fréquence max actuelle du fichier audio
 	 * 
-	 * @return la fréquence de la musique 
+	 * @return la fréquence max de la musique 
 	 */
-	public double getFrequence() {
+	public double getFrequenceMax() {
 
-		return frequence;
+		return frequenceMax;
+
+	}
+
+	/**
+	 * Permet d'obtenir la fréquence min actuelle du fichier audio
+	 * 
+	 * @return la fréquence min de la musique 
+	 */
+	public double getFrequenceMin() {
+
+		return frequenceMin;
+
+	}
+
+	/**
+	 * Permet d'obtenir la fréquence moyenne actuelle du fichier audio
+	 * 
+	 * @return la fréquence moyenne de la musique 
+	 */
+	public double getFrequenceMoy() {
+
+		return frequenceMoy;
 
 	}
 

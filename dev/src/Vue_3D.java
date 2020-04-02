@@ -1,10 +1,9 @@
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.media.opengl.GLCapabilities;
-import javax.media.opengl.GLProfile;
-import javax.media.opengl.awt.GLCanvas;
-
+import com.jogamp.opengl.GLCapabilities;
+import com.jogamp.opengl.GLProfile;
+import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.util.FPSAnimator;
 
 /**
@@ -17,174 +16,191 @@ import com.jogamp.opengl.util.FPSAnimator;
  */
 public class Vue_3D extends GLCanvas implements Observer {
 
-	/**
-	 * Nombre de rectangle à afficher
-	 */
-	private int nombre_rectangle;
+  /**
+   * Nombre de rectangle à afficher
+   */
+  private int nombre_rectangle;
 
-	/**
-	 * Contient tout les ratios qui seront affiché au premier plan
-	 */
-	private double[] ratioFrequenceForeground;
+  /**
+   * Contient tout les ratios qui seront affiché au premier plan
+   */
+  private double[] ratioFrequenceForeground;
 
-	/**
-	 * Contient tout les ratios qui seront affiché en fond
-	 */
-	private double[] ratioFrequenceBackground;
+  /**
+   * Contient tout les ratios qui seront affiché en fond
+   */
+  private double[] ratioFrequenceBackground;
 
-	/**
-	 * Outils utilisé pour l'affichage 3D
-	 */
-	private final static GLProfile PROFILE = GLProfile.get(GLProfile.GL2);
+  /**
+   * Outils utilisé pour l'affichage 3D
+   */
+  private final static GLProfile PROFILE = GLProfile.get(GLProfile.GL2);
 
-	/**
-	 * Outils utilisé pour l'affichage 3D
-	 */	
-	private static GLCapabilities CAPABILITIES = new GLCapabilities(Vue_3D.PROFILE);
+  /**
+   * Outils utilisé pour l'affichage 3D
+   */	
+  private static GLCapabilities CAPABILITIES = new GLCapabilities(Vue_3D.PROFILE);
 
-	/**
-	 * Outils utilisé pour l'affichage 3D
-	 * 
-	 * Permet des changement d'affichage
-	 * 	par exemple quand la fréquence change
-	 */
-	final FPSAnimator animator = new FPSAnimator(this, 300, true);
+  /**
+   * Outils utilisé pour l'affichage 3D
+   * 
+   * Permet des changement d'affichage
+   * 	par exemple quand la fréquence change
+   */
+  final FPSAnimator animator = new FPSAnimator(this, 300, true);
 
-	/**
-	 * Les 4 cubes à affiché
-	 */
-	private Forme_Cube cubes;
+  /**
+   * Les 4 cubes à affiché
+   */
+  private Forme_Cube cubes;
 
-	/**
-	 * Constructeur de la classe
-	 * 
-	 * Initialise les donnés sensibles
-	 */
-	public Vue_3D() {
+  /**
+   * Constructeur de la classe
+   * 
+   * Initialise les donnés sensibles
+   */
+  public Vue_3D() {
 
-		super(Vue_3D.CAPABILITIES);
+    super(Vue_3D.CAPABILITIES);
 
-		this.nombre_rectangle = 4;
+    this.nombre_rectangle = 4;
 
-		this.ratioFrequenceForeground = new double[4];
-		this.ratioFrequenceBackground = new double[4];
+    this.ratioFrequenceForeground = new double[4];
+    this.ratioFrequenceBackground = new double[4];
 
-		this.cubes = new Forme_Cube();
+    this.cubes = new Forme_Cube();
 
-		this.addGLEventListener(cubes);
+    this.addGLEventListener(cubes);
 
-	}
+  }
 
-	/**
-	 * Met à jour la vue
-	 * 
-	 * Importe la frequence du model et la stock dans le 
-	 * tableau ratioFrequence
-	 */
-	public void update(Observable m, Object obj) {
+  /**
+   * Met à jour la vue
+   * 
+   * Importe la frequence du model et la stock dans le 
+   * tableau ratioFrequence
+   */
+  public void update(Observable m, Object obj) {
 
-		Model model = (Model) m;
+    Model model = (Model) m;
 
-		if (model.getErreur() == null) {
+    if (model.getErreur() == null) {
 
-			if (!model.isThreeDimension()) {
+      if (!model.isThreeDimension()) {
 
-				if (animator.isAnimating())
-					animator.stop();
-				
-				return;
+        if (animator.isAnimating())
+          animator.stop();
 
-			}
+        return;
 
-			else {
+      }
 
-				if (model.isFileLoaded() 
-						&& model.getMusique().isLoad()
-						&& !model.getMusique().isPause()) {
+      else {
 
-					if (!animator.isStarted())
-						animator.start();
+        if (model.isFileLoaded() 
+            && model.getMusique().isLoad()
+            && !model.getMusique().isPause()) {
 
-					if (model.isCouleur_3d_random()) {
+          if (!animator.isStarted())
+            animator.start();
 
-						cubes.setCouleurR(
-								new double[] {
-										Math.random(),
-										Math.random(), 
-										Math.random(), 
-										Math.random()
-								});
-						cubes.setCouleurB(
-								new double[] {
-										Math.random(),
-										Math.random(), 
-										Math.random(), 
-										Math.random()
-								});
-						cubes.setCouleurG(
-								new double[] {
-										Math.random(),
-										Math.random(), 
-										Math.random(), 
-										Math.random()
-								});
+          if (model.isCouleur_3d_random()) {
 
-					}
+            cubes.setCouleurR(
+                new double[] {
+                    Math.random(),
+                    Math.random(), 
+                    Math.random(), 
+                    Math.random()
+                });
+            cubes.setCouleurB(
+                new double[] {
+                    Math.random(),
+                    Math.random(), 
+                    Math.random(), 
+                    Math.random()
+                });
+            cubes.setCouleurG(
+                new double[] {
+                    Math.random(),
+                    Math.random(), 
+                    Math.random(), 
+                    Math.random()
+                });
 
-					else {
+          }
 
-						cubes.setCouleurR(
-								new double[] {
-										(double) model.getCouleur_3d_cube1_r() / 255,
-										(double) model.getCouleur_3d_cube2_r() / 255,
-										(double) model.getCouleur_3d_cube3_r() / 255,
-										(double) model.getCouleur_3d_cube4_r() / 255
-								});
+          else {
 
-						cubes.setCouleurG(
-								new double[] {
-										(double) model.getCouleur_3d_cube1_g() / 255,
-										(double) model.getCouleur_3d_cube2_g() / 255,
-										(double) model.getCouleur_3d_cube3_g() / 255,
-										(double) model.getCouleur_3d_cube4_g() / 255
-								});
+            cubes.setCouleurR(
+                new double[] {
+                    (double) model.getCouleur_3d_cube1_r() / 255,
+                    (double) model.getCouleur_3d_cube2_r() / 255,
+                    (double) model.getCouleur_3d_cube3_r() / 255,
+                    (double) model.getCouleur_3d_cube4_r() / 255
+                });
 
-						cubes.setCouleurB(
-								new double[] {
-										(double) model.getCouleur_3d_cube1_b() / 255,
-										(double) model.getCouleur_3d_cube2_b() / 255,
-										(double) model.getCouleur_3d_cube3_b() / 255,
-										(double) model.getCouleur_3d_cube4_b() / 255
-								});
+            cubes.setCouleurG(
+                new double[] {
+                    (double) model.getCouleur_3d_cube1_g() / 255,
+                    (double) model.getCouleur_3d_cube2_g() / 255,
+                    (double) model.getCouleur_3d_cube3_g() / 255,
+                    (double) model.getCouleur_3d_cube4_g() / 255
+                });
 
-					}
+            cubes.setCouleurB(
+                new double[] {
+                    (double) model.getCouleur_3d_cube1_b() / 255,
+                    (double) model.getCouleur_3d_cube2_b() / 255,
+                    (double) model.getCouleur_3d_cube3_b() / 255,
+                    (double) model.getCouleur_3d_cube4_b() / 255
+                });
 
-					for (int index = 0; index < nombre_rectangle; index ++) {
+          }
 
-						try {
+          if (model.getMode().equals("Ton")) {
+            
+            for (int index = 0; index < nombre_rectangle; index ++) {
 
-							ratioFrequenceForeground[index] = ratioFrequenceForeground[index + 1];
-							ratioFrequenceBackground[index] = ratioFrequenceBackground[index + 1];
+              try {
+                
+                ratioFrequenceBackground[index] = ratioFrequenceBackground[index + 1];
 
-						}
+              }
 
-						catch (IndexOutOfBoundsException e) {
-							
-							if (model.getRatioFrequence().length > 1)
-								ratioFrequenceBackground[index] = model.getRatioFrequence()[1];
-							ratioFrequenceForeground[index] = model.getRatioFrequence()[0];
+              catch (IndexOutOfBoundsException e) {
 
-						}
-					}
-				}
+                ratioFrequenceBackground[index] = model.getRatioFrequence()[1];
 
-				//cubes.setRatioFrequenceForeground(ratioFrequenceForeground);
-				//cubes.setRatioFrequenceBackground(ratioFrequenceBackground);
+              }
+            }
 
-			}
-		}
-	}
+            cubes.setRatioFrequenceBackground(ratioFrequenceBackground);
 
-	//https://www.tutorialspoint.com/jogl/jogl_quick_guide.htm
-	
+          }
+
+          for (int index = 0; index < nombre_rectangle; index ++) {
+
+            try {
+
+              ratioFrequenceForeground[index] = ratioFrequenceForeground[index + 1];
+
+            }
+
+            catch (IndexOutOfBoundsException e) {
+
+              ratioFrequenceForeground[index] = model.getRatioFrequence()[0];
+
+            }
+          }
+
+          cubes.setRatioFrequenceForeground(ratioFrequenceForeground);
+
+        }
+      }
+    }
+  }
+
+  //https://www.tutorialspoint.com/jogl/jogl_quick_guide.htm
+
 }

@@ -52,22 +52,39 @@ public class Controller_Fenetre extends Controller implements WindowListener {
 
 		}
 
-		if (frame.getTitle().equals("Visuals Music - Settings")) {
+    if (frame.getTitle().equals("Visuals Music - Settings")) {
 
-			int confirmation = JOptionPane.showConfirmDialog(null, 
-					"Tout éléments non sauvegardé ne sera pas pris en compte"
-							+ "\n\n"
-							+ "Êtes-vous sur de vouloir continuer ?",
-							"Fermer les paramètres ?", 
-							JOptionPane.YES_NO_OPTION,
-							JOptionPane.QUESTION_MESSAGE);
+      int confirmation = JOptionPane.showConfirmDialog(null, 
+          "Tout éléments non sauvegardé ne sera pas pris en compte"
+              + "\n\n"
+              + "Êtes-vous sur de vouloir continuer ?",
+              "Fermer les paramètres ?", 
+              JOptionPane.YES_NO_OPTION,
+              JOptionPane.QUESTION_MESSAGE);
 
-			if (confirmation == JOptionPane.YES_OPTION)
-				model.setPrintSettings(false);
-			
-			return;
+      if (confirmation == JOptionPane.YES_OPTION)
+        model.setPrintSettings(false);
+      
+      return;
 
-		}
+    }
+
+    if (frame.getTitle().equals("Visuals Music - Mode Chooser")) {
+
+      int confirmation = JOptionPane.showConfirmDialog(null, 
+          "Tout éléments non sauvegardé ne sera pas pris en compte"
+              + "\n\n"
+              + "Êtes-vous sur de vouloir continuer ?",
+              "Fermer les paramètres ?", 
+              JOptionPane.YES_NO_OPTION,
+              JOptionPane.QUESTION_MESSAGE);
+
+      if (confirmation == JOptionPane.YES_OPTION)
+        model.setPrintModeChooser(false);
+      
+      return;
+
+    }    
 	}
 
 	//TODO

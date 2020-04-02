@@ -19,1276 +19,1336 @@ import java.util.Observer;
  */
 public class Model extends Observable implements Observer {
 
-	//TODO
-	private static final int VOLUME_MAX = 200;
-
-	//TODO
-	private static final int VOLUME_MIN = 0;
-
-	//TODO
-	private static final int INDEX_PREMIER_FICHIER_DANS_LISTE = 0;
-
-	/**
-	 * L'epaisseur des formes 2D et 3D
-	 */
-	private int epaisseur;
-
-	/**
-	 * L'amplitude des formes 2d et 3D
-	 * 
-	 * Prend la valeur de base et multiplie par l'amplitude
-	 */
-	private int amplitude;
-
-	/**
-	 * L'espacement entre deux formes 2D et 3D
-	 */
-	private int espacement;
-
-	/**
-	 * La valeur de couleur rouge pour l'intérieur des formes 2D
-	 * 
-	 * 0 <= couleur <= 255
-	 */
-	private int couleur_2d_forme_r;
-
-	/**
-	 * La valeur de couleur bleu pour l'intérieur des formes 2D
-	 * 
-	 * 0 <= couleur <= 255
-	 */
-	private int couleur_2d_forme_b;
-
-	/**
-	 * La valeur de couleur vert pour l'intérieur des formes 2D
-	 * 
-	 * 0 <= couleur <= 255
-	 */
-	private int couleur_2d_forme_g;
-
-	/**
-	 * La valeur de couleur rouge pour les traits des formes 2D
-	 * 
-	 * 0 <= couleur <= 255
-	 */
-	private int couleur_2d_trait_r;
-
-	/**
-	 * La valeur de couleur vert pour les traits des formes 2D
-	 * 
-	 * 0 <= couleur <= 255
-	 */
-	private int couleur_2d_trait_g;
-
-	/**
-	 * La valeur de couleur bleu pour les traits des formes 2D
-	 * 
-	 * 0 <= couleur <= 255
-	 */
-	private int couleur_2d_trait_b;
-
-	/**
-	 * La valeur de couleur rouge pour le cube 3d numéro 1 
-	 * 
-	 * 0 <= couleur <= 255
-	 */
-	private int couleur_3d_cube1_r;
-
-	/**
-	 * La valeur de couleur vert pour le cube 3d numéro 1 
-	 * 
-	 * 0 <= couleur <= 255
-	 */
-	private int couleur_3d_cube1_g;
-
-	/**
-	 * La valeur de couleur bleu pour le cube 3d numéro 1 
-	 * 
-	 * 0 <= couleur <= 255
-	 */
-	private int couleur_3d_cube1_b;
-
-	/**
-	 * La valeur de couleur rouge pour le cube 3d numéro 2 
-	 * 
-	 * 0 <= couleur <= 255
-	 */
-	private int couleur_3d_cube2_r;
-
-	/**
-	 * La valeur de couleur vert pour le cube 3d numéro 2
-	 * 
-	 * 0 <= couleur <= 255
-	 */
-	private int couleur_3d_cube2_g;
-
-	/**
-	 * La valeur de couleur bleu pour le cube 3d numéro 2 
-	 * 
-	 * 0 <= couleur <= 255
-	 */
-	private int couleur_3d_cube2_b;
-
-	/**
-	 * La valeur de couleur rouge pour le cube 3d numéro 3 
-	 * 
-	 * 0 <= couleur <= 255
-	 */
-	private int couleur_3d_cube3_r;
-
-	/**
-	 * La valeur de couleur vert pour le cube 3d numéro 3
-	 * 
-	 * 0 <= couleur <= 255
-	 */
-	private int couleur_3d_cube3_g;
-
-	/**
-	 * La valeur de couleur bleu pour le cube 3d numéro 3 
-	 * 
-	 * 0 <= couleur <= 255
-	 */
-	private int couleur_3d_cube3_b;
-
-	/**
-	 * La valeur de couleur rouge pour le cube 3d numéro 4 
-	 * 
-	 * 0 <= couleur <= 255
-	 */
-	private int couleur_3d_cube4_r;
-
-	/**
-	 * La valeur de couleur vert pour le cube 3d numéro 4
-	 * 
-	 * 0 <= couleur <= 255
-	 */
-	private int couleur_3d_cube4_g;
-
-	/**
-	 * La valeur de couleur bleu pour le cube 3d numéro 4 
-	 * 
-	 * 0 <= couleur <= 255
-	 */
-	private int couleur_3d_cube4_b;
-
-	/**
-	 * Définis si la musique doit se lancer automatiquement dès quelle et ouverte
-	 * ou non
-	 * 
-	 * true : se lancera automatiquement
-	 * false: l'utilisateur devra presser "Lecture"
-	 */
-	private boolean autoplay;
-
-	/**
-	 * Définis si les couleur pour l'affichage 2D seront aléatoire ou non
-	 * 
-	 * true : sera aléatoire
-	 * false: définis pas l'utilisateur
-	 */
-	private boolean couleur_2d_random;
-
-	/**
-	 * Définis si les couleur pour l'affichage 3D seront aléatoire ou non
-	 * 
-	 * true : sera aléatoire
-	 * false: définis pas l'utilisateur
-	 */
-	private boolean couleur_3d_random;
-
-	/**
-	 * Définis si la fenêtre dois se mettre en plein écran ou non
-	 * 
-	 * true : sera en plein écran
-	 * false: ne le sera pas
-	 */
-	private boolean fullScreen;
-
-	/**
-	 * Fichier qui sera écouté
-	 */
-	private File[] fichiers;
-
-	/**
-	 * Le répertoire où se trouve le fichier actuellement écouté
-	 */
-	private File directory;
-
-	/**
-	 * Classe de type Model, connu et instancié uniquement ici
-	 * Permet le MultiThreading et ainsi de garder la main sur le programme
-	 */
-	private Model_Musique musique;
-
-	/**
-	 * Permet le MultiThreading et ainsi de garder la main sur le programme
-	 * Créé a partir de musique, attribut décris ci-dessus
-	 */
-	private Thread musiqueThread;
-
-	/**
-	 * Définis si le programme a rencontré une erreur
-	 * 
-	 * null : aucune
-	 * autre : de type donné
-	 */
-	private Exception erreur;
-
-	/**
-	 * Définis si l'utilisateur utilise le visualiseur 2D ou non
-	 * 
-	 * true  : l'utilisateur utilise la 3D
-	 * false : l'utilisateur utilise la 2D
-	 */
-	private boolean isThreeDimension;
-
-	/**
-	 * Définis s'il faut changer de visualiseur ou non
-	 * 
-	 * true : il faut changer
-	 * false: il ne faut pas changer
-	 */
-	private boolean changingDimension;
-
-	/**
-	 * Définis s'il faut afficher les paramètres ou non
-	 * 
-	 * true : à afficher
-	 * false: ne pas afficher
-	 */
-	private boolean printSettings;
-
-	/**
-	 * Définis si la lecture doit être en pause ou non
-	 * 
-	 * true  : la lecture s'arrète
-	 * false : la lecture continue/commence
-	 */
-	private boolean pause;
-
-	/**
-	 * Le niveau du son en pourcents entier
-	 */
-	private int volume;
-
-	//TODO
-	private boolean random;
-
-	//TODO
-	private int currentFileIndex;
-	
-	//TODO
-	private boolean loop;
-
-	//TODO
-	private boolean tone_freq;
-
-	//TODO
-	private boolean max_freq;
-
-	//TODO
-	private boolean min_freq;
-
-	//TODO
-	private boolean moy_freq;
-
-	/**
-	 * Constructeur de la classe
-	 * 
-	 * Initialise les champs ainsi que les paramètres
-	 */
-	public Model() {
-
-		erreur = null;
-
-		isThreeDimension 	= false;
-		printSettings 		= false;
-		fullScreen 			= false;
-
-		amplitude 			= 100;
-		epaisseur 			= 60;
-		espacement			= 0;
-		autoplay 			= true;
-		couleur_2d_random	= true;
-		couleur_3d_random	= true;
-		
-		max_freq = true;
-		min_freq = false;
-		moy_freq = false;
-		tone_freq = false;
-
-		pause = true;
-
-		random = false;
-		loop = false;
-
-		changingDimension = false;
-
-		volume = 50;
-
-		currentFileIndex = 0;
-
-	}
-
-	//TODO Play methode
-
-	/**
-	 * Permet de lire un fichier audio tous en permettant de
-	 * garder la main sur l'application grâce au multithreading
-	 */
-	public void lectureFichier() {
-
-		if (musiqueThread == null || pause) {
-
-			if (!musique.isLoad()) {
-
-				if (currentFileIndex >= fichiers.length) {
-
-					if (this.isLoop())
-						currentFileIndex = 0;
-					
-					else return;
-					
-				}
-				
-				musique.initialisation(fichiers[currentFileIndex]);
-				
-			}
-
-			musiqueThread = new Thread(musique);
-			musiqueThread.start();
-
-		}
-	}
-
-	//TODO
-	private void setRandomList() {
-
-		boolean processing = true;
-
-		int random_index;
-		int taille_tab_fichiers = fichiers.length;
-		int index = 0;
-
-		File[] tab_tampon = new File[taille_tab_fichiers];
-
-		while (processing) {
-
-			random_index = (int) (Math.random() * taille_tab_fichiers);
-
-			if (tab_tampon[random_index] == null) {
-
-				tab_tampon[random_index] = fichiers[index];
-
-				index ++;
-
-			}
-			
-			if (index == taille_tab_fichiers) processing = false;
-			
-		}
-		
-		fichiers = tab_tampon;
-		
-		
-		
-	}
-
-	//TODO
-	public void next() {
-
-		this.stop();	//currentFileIndex + 1
-
-		this.lectureFichier();
-
-	}
-
-	//TODO
-	public void previous() {
-
-		this.currentFileIndex -= 2;
-
-		this.stop();	//currentFileIndex + 1
-
-		this.lectureFichier();
-
-	}
-
-	/**
-	 * permet de modifier le fichier qui doit être lus
-	 */
-	public void setFichier(File file) {
-
-		musique = new Model_Musique(this);
-		pause = true;
-
-		fichiers = null;
-
-		if (musiqueThread != null)
-			musiqueThread.interrupt();
-
-		musiqueThread = null;
-
-		if (file.exists()) {
-
-			if (file.isFile()) {
-
-				fichiers = new File[1];
-				fichiers[0] = file;
+  //TODO
+  private static final int VOLUME_MAX = 200;
+
+  //TODO
+  private static final int VOLUME_MIN = 0;
+
+  //TODO
+  private static final int INDEX_PREMIER_FICHIER_DANS_LISTE = 0;
+
+  public static final int TONE_MODE = 100;
+
+  /**
+   * L'epaisseur des formes 2D et 3D
+   */
+  private int epaisseur;
+
+  /**
+   * L'amplitude des formes 2d et 3D
+   * 
+   * Prend la valeur de base et multiplie par l'amplitude
+   */
+  private int amplitude;
+
+  /**
+   * L'espacement entre deux formes 2D et 3D
+   */
+  private int espacement;
+
+  /**
+   * La valeur de couleur rouge pour l'intérieur des formes 2D
+   * 
+   * 0 <= couleur <= 255
+   */
+  private int couleur_2d_forme_r;
+
+  /**
+   * La valeur de couleur bleu pour l'intérieur des formes 2D
+   * 
+   * 0 <= couleur <= 255
+   */
+  private int couleur_2d_forme_b;
+
+  /**
+   * La valeur de couleur vert pour l'intérieur des formes 2D
+   * 
+   * 0 <= couleur <= 255
+   */
+  private int couleur_2d_forme_g;
+
+  /**
+   * La valeur de couleur rouge pour les traits des formes 2D
+   * 
+   * 0 <= couleur <= 255
+   */
+  private int couleur_2d_trait_r;
+
+  /**
+   * La valeur de couleur vert pour les traits des formes 2D
+   * 
+   * 0 <= couleur <= 255
+   */
+  private int couleur_2d_trait_g;
+
+  /**
+   * La valeur de couleur bleu pour les traits des formes 2D
+   * 
+   * 0 <= couleur <= 255
+   */
+  private int couleur_2d_trait_b;
+
+  /**
+   * La valeur de couleur rouge pour le cube 3d numéro 1 
+   * 
+   * 0 <= couleur <= 255
+   */
+  private int couleur_3d_cube1_r;
+
+  /**
+   * La valeur de couleur vert pour le cube 3d numéro 1 
+   * 
+   * 0 <= couleur <= 255
+   */
+  private int couleur_3d_cube1_g;
+
+  /**
+   * La valeur de couleur bleu pour le cube 3d numéro 1 
+   * 
+   * 0 <= couleur <= 255
+   */
+  private int couleur_3d_cube1_b;
+
+  /**
+   * La valeur de couleur rouge pour le cube 3d numéro 2 
+   * 
+   * 0 <= couleur <= 255
+   */
+  private int couleur_3d_cube2_r;
+
+  /**
+   * La valeur de couleur vert pour le cube 3d numéro 2
+   * 
+   * 0 <= couleur <= 255
+   */
+  private int couleur_3d_cube2_g;
+
+  /**
+   * La valeur de couleur bleu pour le cube 3d numéro 2 
+   * 
+   * 0 <= couleur <= 255
+   */
+  private int couleur_3d_cube2_b;
+
+  /**
+   * La valeur de couleur rouge pour le cube 3d numéro 3 
+   * 
+   * 0 <= couleur <= 255
+   */
+  private int couleur_3d_cube3_r;
+
+  /**
+   * La valeur de couleur vert pour le cube 3d numéro 3
+   * 
+   * 0 <= couleur <= 255
+   */
+  private int couleur_3d_cube3_g;
+
+  /**
+   * La valeur de couleur bleu pour le cube 3d numéro 3 
+   * 
+   * 0 <= couleur <= 255
+   */
+  private int couleur_3d_cube3_b;
+
+  /**
+   * La valeur de couleur rouge pour le cube 3d numéro 4 
+   * 
+   * 0 <= couleur <= 255
+   */
+  private int couleur_3d_cube4_r;
+
+  /**
+   * La valeur de couleur vert pour le cube 3d numéro 4
+   * 
+   * 0 <= couleur <= 255
+   */
+  private int couleur_3d_cube4_g;
+
+  /**
+   * La valeur de couleur bleu pour le cube 3d numéro 4 
+   * 
+   * 0 <= couleur <= 255
+   */
+  private int couleur_3d_cube4_b;
+
+  /**
+   * Définis si la musique doit se lancer automatiquement dès quelle et ouverte
+   * ou non
+   * 
+   * true : se lancera automatiquement
+   * false: l'utilisateur devra presser "Lecture"
+   */
+  private boolean autoplay;
+
+  /**
+   * Définis si les couleur pour l'affichage 2D seront aléatoire ou non
+   * 
+   * true : sera aléatoire
+   * false: définis pas l'utilisateur
+   */
+  private boolean couleur_2d_random;
+
+  /**
+   * Définis si les couleur pour l'affichage 3D seront aléatoire ou non
+   * 
+   * true : sera aléatoire
+   * false: définis pas l'utilisateur
+   */
+  private boolean couleur_3d_random;
+
+  /**
+   * Définis si la fenêtre dois se mettre en plein écran ou non
+   * 
+   * true : sera en plein écran
+   * false: ne le sera pas
+   */
+  private boolean fullScreen;
+
+  /**
+   * Fichier qui sera écouté
+   */
+  private File[] fichiers;
+
+  /**
+   * Le répertoire où se trouve le fichier actuellement écouté
+   */
+  private File directory;
+
+  /**
+   * Classe de type Model, connu et instancié uniquement ici
+   * Permet le MultiThreading et ainsi de garder la main sur le programme
+   */
+  private Model_Musique musique;
+
+  /**
+   * Permet le MultiThreading et ainsi de garder la main sur le programme
+   * Créé a partir de musique, attribut décris ci-dessus
+   */
+  private Thread musiqueThread;
+
+  /**
+   * Définis si le programme a rencontré une erreur
+   * 
+   * null : aucune
+   * autre : de type donné
+   */
+  private Exception erreur;
+
+  /**
+   * Définis si l'utilisateur utilise le visualiseur 2D ou non
+   * 
+   * true  : l'utilisateur utilise la 3D
+   * false : l'utilisateur utilise la 2D
+   */
+  private boolean isThreeDimension;
+
+  /**
+   * Définis s'il faut changer de visualiseur ou non
+   * 
+   * true : il faut changer
+   * false: il ne faut pas changer
+   */
+  private boolean changingDimension;
+
+  /**
+   * Définis s'il faut afficher les paramètres ou non
+   * 
+   * true : à afficher
+   * false: ne pas afficher
+   */
+  private boolean printSettings;
+
+  /**
+   * Définis si la lecture doit être en pause ou non
+   * 
+   * true  : la lecture s'arrète
+   * false : la lecture continue/commence
+   */
+  private boolean pause;
+
+  /**
+   * Le niveau du son en pourcents entier
+   */
+  private int volume;
+
+  //TODO
+  private boolean random;
+
+  //TODO
+  private int currentFileIndex;
+
+  //TODO
+  private boolean loop;
+
+  //TODO
+  private boolean tone_freq;
+
+  //TODO
+  private boolean max_freq;
+
+  //TODO
+  private boolean min_freq;
+
+  //TODO
+  private boolean moy_freq;
+
+  //TODO
+  private boolean printModeChooser;
+
+  /**
+   * Constructeur de la classe
+   * 
+   * Initialise les champs ainsi que les paramètres
+   */
+  public Model() {
+
+    erreur = null;
+
+    isThreeDimension 	= false;
+    printSettings 		= false;
+    printModeChooser = false;
+    fullScreen 			= false;
 
-			}
+    amplitude 			= 100;
+    epaisseur 			= 60;
+    espacement			= 0;
+    autoplay 			= true;
+    couleur_2d_random	= true;
+    couleur_3d_random	= true;
 
-			else if (file.isDirectory()) {
+    max_freq = true;
+    min_freq = false;
+    moy_freq = false;
+    tone_freq = false;
 
-				//TODO un peu barbare => voir les .wav
-				fichiers = file.listFiles();
+    pause = true;
 
-				if (random) {
-	
-					this.setRandomList();
-	
-				}
+    random = false;
+    loop = false;
 
-			}
+    changingDimension = false;
 
-			if (autoplay) {
+    volume = 50;
 
-				pause = false;
+    currentFileIndex = 0;
 
-				this.lectureFichier();
-
-			}			
-
-		}
-
-		else {
-
-			setErreur(new FileNotFoundException());
-			return;
-
-		}
-
-		for (File f : fichiers) {
-			System.out.println(f.getPath());
-		}
-	}
-
-	/**
-	 * permet d'obtenir le model jouant la musique
-	 * 
-	 * @return le model de la musique
-	 */
-	public Model_Musique getMusique() {
-
-		return musique;
-
-	}
-
-	/**
-	 * permet d'arrêter la musique
-	 * et de remettre le même fichier
-	 * au début de la lecture
-	 */
-	public void stop() {
-
-		musique.reset();
-
-		if (musiqueThread != null)
-			musiqueThread.interrupt();
-
-		musiqueThread = null;
-
-	}
-
-	/**
-	 * @return un boolean qui permet de savoir
-	 * si le fichier est en cours de lecture ou pas
-	 * 
-	 * true : le fichier est entrain d'être lu
-	 * false : il n'y a pas de fichier en cour de lecture
-	 */
-	public boolean isFileLoaded() {
-
-		if (fichiers == null)
-			return false;
-
-		for (File file : fichiers)
-			if (file == null)
-				return false;
-
-		return true;
-
-	}
-
-	/**
-	 * notify si il y a une erreur,
-	 * à la vue
-	 */
-	public void setErreur(Exception e) {
-
-		erreur  = e;
+  }
 
-		setChanged();
-		notifyObservers();
-
-		erreur = null;
-
-	}
+  //TODO Play methode
 
-	/**
-	 * permet d'obtenir une erreur
-	 * @return  Exception si il y a une erreur
-	 * 			null sinon
-	 */
-	public Exception getErreur() {
+  /**
+   * Permet de lire un fichier audio tous en permettant de
+   * garder la main sur l'application grâce au multithreading
+   */
+  public void lectureFichier() {
 
-		return erreur;
+    if (musiqueThread == null || pause) {
 
-	}
+      if (!musique.isLoad()) {
 
-	/**
-	 * @return le ration de la fréquense actuel
-	 * par rapport à celle du fichier
-	 */
-	public double[] getRatioFrequence() {
+        if (currentFileIndex >= fichiers.length) {
 
-		double[] freq;
-		
-		if (tone_freq) {
-			
-			freq = new double[2];
-			freq[0] = musique.getFrequenceMax();
-			freq[1] = musique.getFrequenceMin();
-			
-		}
-		else freq = new double[1];
-		
-		if (max_freq) freq[0] = musique.getFrequenceMax();
-		if (moy_freq) freq[0] = musique.getFrequenceMoy();
-		if (min_freq) freq[0] = musique.getFrequenceMin();
+          if (this.isLoop())
+            currentFileIndex = 0;
 
-		for (int i = 0; i < freq.length; i ++) {
-			
-			freq[i] = (freq[i] * amplitude / 100)
-				/ musique.getAudioFormat().getFrameRate();
-			
-		}
-		
-		
+          else return;
 
-		return freq;
+        }
 
-	}
+        musique.initialisation(fichiers[currentFileIndex]);
 
-	/**
-	 * Méthode permettant de mettre à jour
-	 * et de notify l'observer
-	 * 
-	 * utiliser uniquement pas Model_Musique
-	 */
-	public void update(Observable o, Object arg) {
+      }
 
-		if (arg != null) {
+      musiqueThread = new Thread(musique);
+      musiqueThread.start();
 
-			if (arg.equals(Model_Musique.RESET_CODE)) {
-				
-				this.currentFileIndex ++;
-				
-				this.lectureFichier();
+    }
+  }
 
-			}
-		}
+  //TODO
+  private void setRandomList() {
 
-		setChanged();
-		notifyObservers();
+    boolean processing = true;
 
-	}
+    int random_index;
+    int taille_tab_fichiers = fichiers.length;
+    int index = 0;
 
-	/**
-	 * permet de notifié les vue quand des paramètres on changer
-	 */
-	public void parametersChanged(boolean b) {
+    File[] tab_tampon = new File[taille_tab_fichiers];
 
-		if (b) {
+    while (processing) {
 
-			this.setChanged();
-			this.notifyObservers();
+      random_index = (int) (Math.random() * taille_tab_fichiers);
 
-		}
+      if (tab_tampon[random_index] == null) {
 
-	}
+        tab_tampon[random_index] = fichiers[index];
 
-	/**
-	 * renvoie un boulean signalant le visualiseur utiliser
-	 */
-	public boolean isThreeDimension() {
+        index ++;
 
-		return isThreeDimension;
+      }
 
-	}
+      if (index == taille_tab_fichiers) processing = false;
 
-	/**
-	 * Permet de modifier le signal du visualiseur utiliser
-	 */
-	public void setIsThreeDimension(boolean vueChanged) {
+    }
 
-		this.isThreeDimension = vueChanged;
+    fichiers = tab_tampon;
 
-	}
 
-	/**
-	 * Signal si oui ou non l'affichage est en plein écran 	 
-	 */
-	public boolean isFullScreen() {
 
-		return fullScreen;
+  }
 
-	}
+  //TODO
+  public void next() {
 
-	/**
-	 * Permet de signaler s'il faut afficher la fenêtre en plein écran ou non
-	 */
-	public void setFullScreen(boolean fullScreen) {
+    this.stop();	//currentFileIndex + 1
 
-		this.fullScreen = fullScreen;
+    this.lectureFichier();
 
-		setChanged();
-		notifyObservers();
+  }
 
-	}
+  //TODO
+  public void previous() {
 
-	/**
-	 * signal s'il faut afficher les paramètres
-	 */
-	public boolean isPrintSettings() {
+    this.currentFileIndex -= 2;
 
-		return printSettings;
+    this.stop();	//currentFileIndex + 1
 
-	}
+    this.lectureFichier();
 
-	/**
-	 * Permet de signaler s'il faut afficher les paramètre ou non
-	 */
-	public void setPrintSettings(boolean printSettings) {
+  }
 
-		this.printSettings = printSettings;
+  /**
+   * permet de modifier le fichier qui doit être lus
+   */
+  public void setFichier(File file) {
 
-		if (printSettings)
-			this.setPause(true);
+    musique = new Model_Musique(this);
+    pause = true;
 
-		this.setChanged();
-		this.notifyObservers();
+    fichiers = null;
 
-	}
+    if (musiqueThread != null)
+      musiqueThread.interrupt();
 
-	/**
-	 * Renvoie l'epaisseur
-	 */
-	public int getEpaisseur() {
+    musiqueThread = null;
 
-		return epaisseur;
+    if (file.exists()) {
 
-	}
+      if (file.isFile()) {
 
-	/**
-	 * Modifie l'epaisseur
-	 */
-	public void setEpaisseur(int epaisseur) {
+        fichiers = new File[1];
+        fichiers[0] = file;
 
-		this.epaisseur = epaisseur;
+      }
 
-	}
+      else if (file.isDirectory()) {
 
-	/**
-	 * Renvoie l'amplitude
-	 */
-	public int getAmplitude() {
+        //TODO un peu barbare => voir les .wav
+        fichiers = file.listFiles();
 
-		return amplitude;
+        if (random) {
 
-	}
+          this.setRandomList();
 
-	/**
-	 * Modifie l'amplitude
-	 */
-	public void setAmplitude(int amplitude) {
+        }
 
-		this.amplitude = amplitude;
+      }
 
-	}
+      if (autoplay) {
 
-	/**
-	 * Renvoie l'espacement
-	 */
-	public int getEspacement() {
+        pause = false;
 
-		return espacement;
+        this.lectureFichier();
 
-	}
+      }			
 
-	/**
-	 * Modifie l'espacement
-	 */
-	public void setEspacement(int espacement) {
+    }
 
-		this.espacement = espacement;
+    else {
 
-	}
+      setErreur(new FileNotFoundException());
+      return;
 
-	/**
-	 * Renvoie la couleur rouge des formes 2D 
-	 */
-	public int getCouleur_2d_forme_r() {
+    }
 
-		return couleur_2d_forme_r;
+    for (File f : fichiers) {
+      System.out.println(f.getPath());
+    }
+  }
 
-	}
+  /**
+   * permet d'obtenir le model jouant la musique
+   * 
+   * @return le model de la musique
+   */
+  public Model_Musique getMusique() {
 
-	/**
-	 * Modifie la couleur rouge des formes 2D 
-	 */
-	public void setCouleur_2d_forme_r(int couleur_2d_forme_r) {
+    return musique;
 
-		this.couleur_2d_forme_r = couleur_2d_forme_r;
+  }
 
-	}
+  /**
+   * permet d'arrêter la musique
+   * et de remettre le même fichier
+   * au début de la lecture
+   */
+  public void stop() {
 
-	/**
-	 * Renvoie la couleur bleu des formes 2D 
-	 */
-	public int getCouleur_2d_forme_b() {
+    musique.reset();
 
-		return couleur_2d_forme_b;
+    if (musiqueThread != null)
+      musiqueThread.interrupt();
 
-	}
+    musiqueThread = null;
 
-	/**
-	 * Modifie la couleur bleu des formes 2D 
-	 */
-	public void setCouleur_2d_forme_b(int couleur_2d_forme_b) {
+  }
 
-		this.couleur_2d_forme_b = couleur_2d_forme_b;
+  /**
+   * @return un boolean qui permet de savoir
+   * si le fichier est en cours de lecture ou pas
+   * 
+   * true : le fichier est entrain d'être lu
+   * false : il n'y a pas de fichier en cour de lecture
+   */
+  public boolean isFileLoaded() {
 
-	}
+    if (fichiers == null)
+      return false;
 
-	/**
-	 * Renvoie la couleur verte des formes 2D 
-	 */
-	public int getCouleur_2d_forme_g() {
+    for (File file : fichiers)
+      if (file == null)
+        return false;
 
-		return couleur_2d_forme_g;
+    return true;
 
-	}
+  }
 
-	/**
-	 * Modifie la couleur verte des formes 2D 
-	 */
-	public void setCouleur_2d_forme_g(int couleur_2d_forme_g) {
+  /**
+   * notify si il y a une erreur,
+   * à la vue
+   */
+  public void setErreur(Exception e) {
 
-		this.couleur_2d_forme_g = couleur_2d_forme_g;
+    erreur  = e;
 
-	}
+    setChanged();
+    notifyObservers();
 
-	/**
-	 * Renvoie la couleur rouge des traits 2D 
-	 */
-	public int getCouleur_2d_trait_r() {
+    erreur = null;
 
-		return couleur_2d_trait_r;
+  }
 
-	}
+  /**
+   * permet d'obtenir une erreur
+   * @return  Exception si il y a une erreur
+   * 			null sinon
+   */
+  public Exception getErreur() {
 
-	/**
-	 * Modifie la couleur rouge des traits 2D 
-	 */
-	public void setCouleur_2d_trait_r(int couleur_2d_trait_r) {
+    return erreur;
 
-		this.couleur_2d_trait_r = couleur_2d_trait_r;
+  }
 
-	}
+  /**
+   * @return le ration de la fréquense actuel
+   * par rapport à celle du fichier
+   */
+  public double[] getRatioFrequence() {
 
-	/**
-	 * Renvoie la couleur verte des traits 2D 
-	 */
-	public int getCouleur_2d_trait_g() {
+    double[] freq;
 
-		return couleur_2d_trait_g;
+    if (tone_freq) {
 
-	}
+      freq = new double[2];
+      freq[1] = musique.getFrequenceMax();
+      freq[0] = musique.getFrequenceMin();
+      
+    }
+    else freq = new double[1];
 
-	/**
-	 * Modifie la couleur verte des traits 2D 
-	 */
-	public void setCouleur_2d_trait_g(int couleur_2d_trait_g) {
+    if (max_freq) freq[0] = musique.getFrequenceMax();
+    if (moy_freq) freq[0] = musique.getFrequenceMoy();
+    if (min_freq) freq[0] = musique.getFrequenceMin();
 
-		this.couleur_2d_trait_g = couleur_2d_trait_g;
+    for (int i = 0; i < freq.length; i ++) {
 
-	}
+      freq[i] = (freq[i] * amplitude / 100.0)
+          / musique.getAudioFormat().getFrameRate();
 
-	/**
-	 * Renvoie la couleur bleu des traits 2D 
-	 */
-	public int getCouleur_2d_trait_b() {
+    }
 
-		return couleur_2d_trait_b;
 
-	}
 
-	/**
-	 * Modifie la couleur bleu des traits 2D 
-	 */
-	public void setCouleur_2d_trait_b(int couleur_2d_trait_b) {
+    return freq;
 
-		this.couleur_2d_trait_b = couleur_2d_trait_b;
+  }
 
-	}
+  /**
+   * Méthode permettant de mettre à jour
+   * et de notify l'observer
+   * 
+   * utiliser uniquement pas Model_Musique
+   */
+  public void update(Observable o, Object arg) {
 
-	/**
-	 * Renvoie la couleur rouge du cube 3D numéro 1 
-	 */
-	public int getCouleur_3d_cube1_r() {
+    if (arg != null) {
 
-		return couleur_3d_cube1_r;
+      if (arg.equals(Model_Musique.RESET_CODE)) {
 
-	}
+        this.currentFileIndex ++;
 
-	/**
-	 * Modifie la couleur rouge du cube 3D numéro 1 
-	 */
-	public void setCouleur_3d_cube1_r(int couleur_3d_cube1_r) {
+        this.lectureFichier();
 
-		this.couleur_3d_cube1_r = couleur_3d_cube1_r;
+      }
+    }
 
-	}
+    setChanged();
+    notifyObservers();
 
-	/**
-	 * Renvoie la couleur verte du cube 3D numéro 1 
-	 */
-	public int getCouleur_3d_cube1_g() {
+  }
 
-		return couleur_3d_cube1_g;
+  /**
+   * permet de notifié les vue quand des paramètres on changer
+   */
+  public void parametersChanged(boolean b) {
 
-	}
+    if (b) {
 
-	/**
-	 * Modifie la couleur verte du cube 3D numéro 1 
-	 */
-	public void setCouleur_3d_cube1_g(int couleur_3d_cube1_g) {
+      this.setChanged();
+      this.notifyObservers();
 
-		this.couleur_3d_cube1_g = couleur_3d_cube1_g;
+    }
 
-	}
+  }
 
-	/**
-	 * Renvoie la couleur bleu du cube 3D numéro 1 
-	 */
-	public int getCouleur_3d_cube1_b() {
+  /**
+   * renvoie un boulean signalant le visualiseur utiliser
+   */
+  public boolean isThreeDimension() {
 
-		return couleur_3d_cube1_b;
+    return isThreeDimension;
 
-	}
+  }
 
-	/**
-	 * Modifie la couleur bleu du cube 3D numéro 1 
-	 */
-	public void setCouleur_3d_cube1_b(int couleur_3d_cube1_b) {
+  /**
+   * Permet de modifier le signal du visualiseur utiliser
+   */
+  public void setIsThreeDimension(boolean vueChanged) {
 
-		this.couleur_3d_cube1_b = couleur_3d_cube1_b;
+    this.isThreeDimension = vueChanged;
 
-	}
+  }
 
-	/**
-	 * Renvoie la couleur rouge du cube 3D numéro 2 
-	 */
-	public int getCouleur_3d_cube2_r() {
+  /**
+   * Signal si oui ou non l'affichage est en plein écran 	 
+   */
+  public boolean isFullScreen() {
 
-		return couleur_3d_cube2_r;
+    return fullScreen;
 
-	}
+  }
 
-	/**
-	 * Modifie la couleur rouge du cube 3D numéro 2 
-	 */
-	public void setCouleur_3d_cube2_r(int couleur_3d_cube2_r) {
+  /**
+   * Permet de signaler s'il faut afficher la fenêtre en plein écran ou non
+   */
+  public void setFullScreen(boolean fullScreen) {
 
-		this.couleur_3d_cube2_r = couleur_3d_cube2_r;
+    this.fullScreen = fullScreen;
 
-	}
+    setChanged();
+    notifyObservers();
 
-	/**
-	 * Renvoie la couleur verte du cube 3D numéro 2 
-	 */
-	public int getCouleur_3d_cube2_g() {
+  }
 
-		return couleur_3d_cube2_g;
+  /**
+   * signal s'il faut afficher les paramètres
+   */
+  public boolean isPrintSettings() {
 
-	}
+    return printSettings;
 
-	/**
-	 * Modifie la couleur verte du cube 3D numéro 2 
-	 */
-	public void setCouleur_3d_cube2_g(int couleur_3d_cube2_g) {
+  }
 
-		this.couleur_3d_cube2_g = couleur_3d_cube2_g;
+  /**
+   * TODO
+   */
+  public boolean isPrintModeChooser() {
 
-	}
+    return printModeChooser;
 
-	/**
-	 * Renvoie la couleur bleu du cube 3D numéro 2 
-	 */
-	public int getCouleur_3d_cube2_b() {
+  }
 
-		return couleur_3d_cube2_b;
+  /**
+   * Permet de signaler s'il faut afficher les paramètre ou non
+   */
+  public void setPrintSettings(boolean printSettings) {
 
-	}
+    this.printSettings = printSettings;
 
-	/**
-	 * Modifie la couleur bleu du cube 3D numéro 2 
-	 */
-	public void setCouleur_3d_cube2_b(int couleur_3d_cube2_b) {
+    this.printWindow(printSettings);
 
-		this.couleur_3d_cube2_b = couleur_3d_cube2_b;
+  }
 
-	}
+  /**
+   * TODO
+   */
+  public void setPrintModeChooser(boolean print) {
 
-	/**
-	 * Renvoie la couleur rouge du cube 3D numéro 3 
-	 */
-	public int getCouleur_3d_cube3_r() {
+    this.printModeChooser = print;
 
-		return couleur_3d_cube3_r;
+    this.printWindow(print);
 
-	}
+  }
 
-	/**
-	 * Modifie la couleur rouge du cube 3D numéro 3 
-	 */
-	public void setCouleur_3d_cube3_r(int couleur_3d_cube3_r) {
+  //TODO
+  private void printWindow (boolean t) {
 
-		this.couleur_3d_cube3_r = couleur_3d_cube3_r;
+    if (t)
+      this.setPause(true);
 
-	}
+    this.setChanged();
+    this.notifyObservers();
 
-	/**
-	 * Renvoie la couleur verte du cube 3D numéro 3 
-	 */
-	public int getCouleur_3d_cube3_g() {
+  }
 
-		return couleur_3d_cube3_g;
+  /**
+   * Renvoie l'epaisseur
+   */
+  public int getEpaisseur() {
 
-	}
+    return epaisseur;
 
-	/**
-	 * Modifie la couleur verte du cube 3D numéro 3 
-	 */
-	public void setCouleur_3d_cube3_g(int couleur_3d_cube3_g) {
+  }
 
-		this.couleur_3d_cube3_g = couleur_3d_cube3_g;
+  /**
+   * Modifie l'epaisseur
+   */
+  public void setEpaisseur(int epaisseur) {
 
-	}
+    this.epaisseur = epaisseur;
 
-	/**
-	 * Renvoie la couleur bleu du cube 3D numéro 3 
-	 */
-	public int getCouleur_3d_cube3_b() {
+  }
 
-		return couleur_3d_cube3_b;
+  /**
+   * Renvoie l'amplitude
+   */
+  public int getAmplitude() {
 
-	}
+    return amplitude;
 
-	/**
-	 * Modifie la couleur bleu du cube 3D numéro 3 
-	 */
-	public void setCouleur_3d_cube3_b(int couleur_3d_cube3_b) {
+  }
 
-		this.couleur_3d_cube3_b = couleur_3d_cube3_b;
+  /**
+   * Modifie l'amplitude
+   */
+  public void setAmplitude(int amplitude) {
 
-	}
+    this.amplitude = amplitude;
 
-	/**
-	 * Renvoie la couleur rouge du cube 3D numéro 4 
-	 */
-	public int getCouleur_3d_cube4_r() {
+  }
 
-		return couleur_3d_cube4_r;
+  /**
+   * Renvoie l'espacement
+   */
+  public int getEspacement() {
 
-	}
+    return espacement;
 
-	/**
-	 * Modifie la couleur rouge du cube 3D numéro 4 
-	 */
-	public void setCouleur_3d_cube4_r(int couleur_3d_cube4_r) {
+  }
 
-		this.couleur_3d_cube4_r = couleur_3d_cube4_r;
+  /**
+   * Modifie l'espacement
+   */
+  public void setEspacement(int espacement) {
 
-	}
+    this.espacement = espacement;
 
-	/**
-	 * Renvoie la couleur verte du cube 3D numéro 4 
-	 */
-	public int getCouleur_3d_cube4_g() {
+  }
 
-		return couleur_3d_cube4_g;
+  /**
+   * Renvoie la couleur rouge des formes 2D 
+   */
+  public int getCouleur_2d_forme_r() {
 
-	}
+    return couleur_2d_forme_r;
 
-	/**
-	 * Modifie la couleur verte du cube 3D numéro 4 
-	 */
-	public void setCouleur_3d_cube4_g(int couleur_3d_cube4_g) {
+  }
 
-		this.couleur_3d_cube4_g = couleur_3d_cube4_g;
+  /**
+   * Modifie la couleur rouge des formes 2D 
+   */
+  public void setCouleur_2d_forme_r(int couleur_2d_forme_r) {
 
-	}
+    this.couleur_2d_forme_r = couleur_2d_forme_r;
 
-	/**
-	 * Renvoie la couleur bleu du cube 3D numéro 4 
-	 */
-	public int getCouleur_3d_cube4_b() {
+  }
 
-		return couleur_3d_cube4_b;
+  /**
+   * Renvoie la couleur bleu des formes 2D 
+   */
+  public int getCouleur_2d_forme_b() {
 
-	}
+    return couleur_2d_forme_b;
 
-	/**
-	 * Modifie la couleur bleu du cube 3D numéro 4
-	 */
-	public void setCouleur_3d_cube4_b(int couleur_3d_cube4_b) {
+  }
 
-		this.couleur_3d_cube4_b = couleur_3d_cube4_b;
+  /**
+   * Modifie la couleur bleu des formes 2D 
+   */
+  public void setCouleur_2d_forme_b(int couleur_2d_forme_b) {
 
-	}
+    this.couleur_2d_forme_b = couleur_2d_forme_b;
 
-	/**
-	 * Renvoie l'etat du autoplay 
-	 */
-	public boolean isAutoplay() {
+  }
 
-		return autoplay;
+  /**
+   * Renvoie la couleur verte des formes 2D 
+   */
+  public int getCouleur_2d_forme_g() {
 
-	}
+    return couleur_2d_forme_g;
 
-	/**
-	 * Modifie l'etat du autoplay 
-	 */
-	public void setAutoplay(boolean autoplay) {
+  }
 
-		this.autoplay = autoplay;
+  /**
+   * Modifie la couleur verte des formes 2D 
+   */
+  public void setCouleur_2d_forme_g(int couleur_2d_forme_g) {
 
-	}
+    this.couleur_2d_forme_g = couleur_2d_forme_g;
 
-	/**
-	 * Renvoie l'etat des couleurs aléatoire pour la 2D 
-	 */
-	public boolean isCouleur_2d_random() {
+  }
 
-		return couleur_2d_random;
+  /**
+   * Renvoie la couleur rouge des traits 2D 
+   */
+  public int getCouleur_2d_trait_r() {
 
-	}
+    return couleur_2d_trait_r;
 
-	/**
-	 * Modifie l'etat des couleurs aléatoire pour la 2D 
-	 */
-	public void setCouleur_2d_random(boolean couleur_2d_random) {
+  }
 
-		this.couleur_2d_random = couleur_2d_random;
+  /**
+   * Modifie la couleur rouge des traits 2D 
+   */
+  public void setCouleur_2d_trait_r(int couleur_2d_trait_r) {
 
-	}
+    this.couleur_2d_trait_r = couleur_2d_trait_r;
 
-	/**
-	 * Renvoie l'etat des couleurs aléatoire pour la 3D 
-	 */
-	public boolean isCouleur_3d_random() {
+  }
 
-		return couleur_3d_random;
+  /**
+   * Renvoie la couleur verte des traits 2D 
+   */
+  public int getCouleur_2d_trait_g() {
 
-	}
+    return couleur_2d_trait_g;
 
-	/**
-	 * Modifie l'etat des couleurs aléatoire pour la 3D 
-	 */
-	public void setCouleur_3d_random(boolean couleur_3d_random) {
+  }
 
-		this.couleur_3d_random = couleur_3d_random;
+  /**
+   * Modifie la couleur verte des traits 2D 
+   */
+  public void setCouleur_2d_trait_g(int couleur_2d_trait_g) {
 
-	}
+    this.couleur_2d_trait_g = couleur_2d_trait_g;
 
-	/**
-	 * Signale s'il faut mettre la musique en poause ou non
-	 *
-	 * @param b
-	 * true : pause
-	 * false: lecture
-	 */
-	public void setPause(boolean b) {
+  }
 
-		this.pause = b;
+  /**
+   * Renvoie la couleur bleu des traits 2D 
+   */
+  public int getCouleur_2d_trait_b() {
 
-		if (this.musique != null)
-			this.musique.setPause(b);
+    return couleur_2d_trait_b;
 
-		this.setChanged();
-		this.notifyObservers();
+  }
 
-	}
+  /**
+   * Modifie la couleur bleu des traits 2D 
+   */
+  public void setCouleur_2d_trait_b(int couleur_2d_trait_b) {
 
-	/**
-	 * Renvoie l'etat de la lecture
-	 * 
-	 * @return
-	 * true : pause
-	 * false: lecture
-	 */
-	public boolean isPause() {
+    this.couleur_2d_trait_b = couleur_2d_trait_b;
 
-		return this.pause;
+  }
 
-	}
+  /**
+   * Renvoie la couleur rouge du cube 3D numéro 1 
+   */
+  public int getCouleur_3d_cube1_r() {
 
-	/**
-	 * Arrete l'application si true
-	 */
-	public void quitApp(boolean quit) {
+    return couleur_3d_cube1_r;
 
-		if (quit)
-			System.exit(0);
+  }
 
-	}
+  /**
+   * Modifie la couleur rouge du cube 3D numéro 1 
+   */
+  public void setCouleur_3d_cube1_r(int couleur_3d_cube1_r) {
 
-	/**
-	 * Renvoie l'etat d'une demande de changement de visualiseur
-	 */
-	public boolean isChangingDimension() {
+    this.couleur_3d_cube1_r = couleur_3d_cube1_r;
 
-		return changingDimension;
+  }
 
-	}
+  /**
+   * Renvoie la couleur verte du cube 3D numéro 1 
+   */
+  public int getCouleur_3d_cube1_g() {
 
-	/**
-	 * Demande le changement de visualiseur
-	 */
-	public void setChangingDimension(boolean changingDimension) {
+    return couleur_3d_cube1_g;
 
-		this.changingDimension = changingDimension;
+  }
 
-		this.setChanged();
-		this.notifyObservers();
+  /**
+   * Modifie la couleur verte du cube 3D numéro 1 
+   */
+  public void setCouleur_3d_cube1_g(int couleur_3d_cube1_g) {
 
-		this.changingDimension = false;
+    this.couleur_3d_cube1_g = couleur_3d_cube1_g;
 
-	}
+  }
 
-	/**
-	 * Renvoie le volume de la musique
-	 */
-	public int getVolume() {
+  /**
+   * Renvoie la couleur bleu du cube 3D numéro 1 
+   */
+  public int getCouleur_3d_cube1_b() {
 
-		return volume;
+    return couleur_3d_cube1_b;
 
-	}
+  }
 
-	/**
-	 * Modifie le volume de la musique
-	 */
-	public void setVolume(int volume) {
+  /**
+   * Modifie la couleur bleu du cube 3D numéro 1 
+   */
+  public void setCouleur_3d_cube1_b(int couleur_3d_cube1_b) {
 
-		this.volume = volume;
+    this.couleur_3d_cube1_b = couleur_3d_cube1_b;
 
-		if (musique != null)
-			this.musique.setVol( (float) volume / 100 );
+  }
 
-	}
+  /**
+   * Renvoie la couleur rouge du cube 3D numéro 2 
+   */
+  public int getCouleur_3d_cube2_r() {
 
-	//TODO
-	public void increaseVolume() {
+    return couleur_3d_cube2_r;
 
-		if (volume <= Model.VOLUME_MAX - 2)
-			this.setVolume(volume + 2);
+  }
 
-		else
-			volume = Model.VOLUME_MAX;
+  /**
+   * Modifie la couleur rouge du cube 3D numéro 2 
+   */
+  public void setCouleur_3d_cube2_r(int couleur_3d_cube2_r) {
 
-		this.setChanged();
-		this.notifyObservers();
+    this.couleur_3d_cube2_r = couleur_3d_cube2_r;
 
-	}
+  }
 
-	//TODO
-	public void decreaseVolume() {
+  /**
+   * Renvoie la couleur verte du cube 3D numéro 2 
+   */
+  public int getCouleur_3d_cube2_g() {
 
-		if (volume >= Model.VOLUME_MIN + 2)
-			this.setVolume(volume - 2);
+    return couleur_3d_cube2_g;
 
-		else
-			volume = Model.VOLUME_MIN;
+  }
 
-		this.setChanged();
-		this.notifyObservers();
+  /**
+   * Modifie la couleur verte du cube 3D numéro 2 
+   */
+  public void setCouleur_3d_cube2_g(int couleur_3d_cube2_g) {
 
-	}
+    this.couleur_3d_cube2_g = couleur_3d_cube2_g;
 
-	/**
-	 * Permet d'obtenir le répertoire actuel
-	 * @return the directory
-	 */
-	public File getDirectory() {
+  }
 
-		return directory;
+  /**
+   * Renvoie la couleur bleu du cube 3D numéro 2 
+   */
+  public int getCouleur_3d_cube2_b() {
 
-	}
+    return couleur_3d_cube2_b;
 
-	/**
-	 * Permet de modifier le répertoire actuel
-	 * @param directory the directory to set
-	 */
-	public void setDirectory(File directory) {
+  }
 
-		this.directory = directory;
+  /**
+   * Modifie la couleur bleu du cube 3D numéro 2 
+   */
+  public void setCouleur_3d_cube2_b(int couleur_3d_cube2_b) {
 
-	}
+    this.couleur_3d_cube2_b = couleur_3d_cube2_b;
 
-	/**
-	 * TODO
-	 * @return the random
-	 */
-	public boolean isRandom() {
+  }
 
-		return random;
-		
+  /**
+   * Renvoie la couleur rouge du cube 3D numéro 3 
+   */
+  public int getCouleur_3d_cube3_r() {
 
-	}
+    return couleur_3d_cube3_r;
 
-	/**
-	 * TODO
-	 * @param random the random to set
-	 */
-	public void setRandom(boolean random) {
+  }
 
-		this.random = random;
+  /**
+   * Modifie la couleur rouge du cube 3D numéro 3 
+   */
+  public void setCouleur_3d_cube3_r(int couleur_3d_cube3_r) {
 
-		setChanged();
-		notifyObservers();
-		
-	}
+    this.couleur_3d_cube3_r = couleur_3d_cube3_r;
 
-	/**
-	 * @return the loop
-	 */
-	public boolean isLoop() {
-		
-		return loop;
-		
-	}
+  }
 
-	/**
-	 * @param loop the loop to set
-	 */
-	public void setLoop(boolean loop) {
-		
-		this.loop = loop;
+  /**
+   * Renvoie la couleur verte du cube 3D numéro 3 
+   */
+  public int getCouleur_3d_cube3_g() {
 
-		setChanged();
-		notifyObservers();
-		
-	}
+    return couleur_3d_cube3_g;
+
+  }
+
+  /**
+   * Modifie la couleur verte du cube 3D numéro 3 
+   */
+  public void setCouleur_3d_cube3_g(int couleur_3d_cube3_g) {
+
+    this.couleur_3d_cube3_g = couleur_3d_cube3_g;
+
+  }
+
+  /**
+   * Renvoie la couleur bleu du cube 3D numéro 3 
+   */
+  public int getCouleur_3d_cube3_b() {
+
+    return couleur_3d_cube3_b;
+
+  }
+
+  /**
+   * Modifie la couleur bleu du cube 3D numéro 3 
+   */
+  public void setCouleur_3d_cube3_b(int couleur_3d_cube3_b) {
+
+    this.couleur_3d_cube3_b = couleur_3d_cube3_b;
+
+  }
+
+  /**
+   * Renvoie la couleur rouge du cube 3D numéro 4 
+   */
+  public int getCouleur_3d_cube4_r() {
+
+    return couleur_3d_cube4_r;
+
+  }
+
+  /**
+   * Modifie la couleur rouge du cube 3D numéro 4 
+   */
+  public void setCouleur_3d_cube4_r(int couleur_3d_cube4_r) {
+
+    this.couleur_3d_cube4_r = couleur_3d_cube4_r;
+
+  }
+
+  /**
+   * Renvoie la couleur verte du cube 3D numéro 4 
+   */
+  public int getCouleur_3d_cube4_g() {
+
+    return couleur_3d_cube4_g;
+
+  }
+
+  /**
+   * Modifie la couleur verte du cube 3D numéro 4 
+   */
+  public void setCouleur_3d_cube4_g(int couleur_3d_cube4_g) {
+
+    this.couleur_3d_cube4_g = couleur_3d_cube4_g;
+
+  }
+
+  /**
+   * Renvoie la couleur bleu du cube 3D numéro 4 
+   */
+  public int getCouleur_3d_cube4_b() {
+
+    return couleur_3d_cube4_b;
+
+  }
+
+  /**
+   * Modifie la couleur bleu du cube 3D numéro 4
+   */
+  public void setCouleur_3d_cube4_b(int couleur_3d_cube4_b) {
+
+    this.couleur_3d_cube4_b = couleur_3d_cube4_b;
+
+  }
+
+  /**
+   * Renvoie l'etat du autoplay 
+   */
+  public boolean isAutoplay() {
+
+    return autoplay;
+
+  }
+
+  /**
+   * Modifie l'etat du autoplay 
+   */
+  public void setAutoplay(boolean autoplay) {
+
+    this.autoplay = autoplay;
+
+  }
+
+  /**
+   * Renvoie l'etat des couleurs aléatoire pour la 2D 
+   */
+  public boolean isCouleur_2d_random() {
+
+    return couleur_2d_random;
+
+  }
+
+  /**
+   * Modifie l'etat des couleurs aléatoire pour la 2D 
+   */
+  public void setCouleur_2d_random(boolean couleur_2d_random) {
+
+    this.couleur_2d_random = couleur_2d_random;
+
+  }
+
+  /**
+   * Renvoie l'etat des couleurs aléatoire pour la 3D 
+   */
+  public boolean isCouleur_3d_random() {
+
+    return couleur_3d_random;
+
+  }
+
+  /**
+   * Modifie l'etat des couleurs aléatoire pour la 3D 
+   */
+  public void setCouleur_3d_random(boolean couleur_3d_random) {
+
+    this.couleur_3d_random = couleur_3d_random;
+
+  }
+
+  /**
+   * Signale s'il faut mettre la musique en poause ou non
+   *
+   * @param b
+   * true : pause
+   * false: lecture
+   */
+  public void setPause(boolean b) {
+
+    this.pause = b;
+
+    if (this.musique != null)
+      this.musique.setPause(b);
+
+    this.setChanged();
+    this.notifyObservers();
+
+  }
+
+  /**
+   * Renvoie l'etat de la lecture
+   * 
+   * @return
+   * true : pause
+   * false: lecture
+   */
+  public boolean isPause() {
+
+    return this.pause;
+
+  }
+
+  /**
+   * Arrete l'application si true
+   */
+  public void quitApp(boolean quit) {
+
+    if (quit)
+      System.exit(0);
+
+  }
+
+  /**
+   * Renvoie l'etat d'une demande de changement de visualiseur
+   */
+  public boolean isChangingDimension() {
+
+    return changingDimension;
+
+  }
+
+  /**
+   * Demande le changement de visualiseur
+   */
+  public void setChangingDimension(boolean changingDimension) {
+
+    this.changingDimension = changingDimension;
+
+    this.setChanged();
+    this.notifyObservers();
+
+    this.changingDimension = false;
+
+  }
+
+  /**
+   * Renvoie le volume de la musique
+   */
+  public int getVolume() {
+
+    return volume;
+
+  }
+
+  /**
+   * Modifie le volume de la musique
+   */
+  public void setVolume(int volume) {
+
+    this.volume = volume;
+
+    if (musique != null)
+      this.musique.setVol( (float) volume / 100 );
+
+  }
+
+  //TODO
+  public void increaseVolume() {
+
+    if (volume <= Model.VOLUME_MAX - 2)
+      this.setVolume(volume + 2);
+
+    else
+      volume = Model.VOLUME_MAX;
+
+    this.setChanged();
+    this.notifyObservers();
+
+  }
+
+  //TODO
+  public void decreaseVolume() {
+
+    if (volume >= Model.VOLUME_MIN + 2)
+      this.setVolume(volume - 2);
+
+    else
+      volume = Model.VOLUME_MIN;
+
+    this.setChanged();
+    this.notifyObservers();
+
+  }
+
+  /**
+   * Permet d'obtenir le répertoire actuel
+   * @return the directory
+   */
+  public File getDirectory() {
+
+    return directory;
+
+  }
+
+  /**
+   * Permet de modifier le répertoire actuel
+   * @param directory the directory to set
+   */
+  public void setDirectory(File directory) {
+
+    this.directory = directory;
+
+  }
+
+  /**
+   * TODO
+   * @return the random
+   */
+  public boolean isRandom() {
+
+    return random;
+
+
+  }
+
+  /**
+   * TODO
+   * @param random the random to set
+   */
+  public void setRandom(boolean random) {
+
+    this.random = random;
+
+    setChanged();
+    notifyObservers();
+
+  }
+
+  /**
+   * @return the loop
+   */
+  public boolean isLoop() {
+
+    return loop;
+
+  }
+
+  /**
+   * @param loop the loop to set
+   */
+  public void setLoop(boolean loop) {
+
+    this.loop = loop;
+
+    setChanged();
+    notifyObservers();
+
+  }
+
+  /**
+   * renvoie le mode d'affichage
+   * @return le mode d'afichage (int)
+   */
+  public String getMode() {
+
+    if (tone_freq) return "Ton";
+    else if (max_freq) return "Maximum";
+    else if (min_freq) return "Minimum";
+    else return "Moyenne";
+
+  }
+
+  public void setMode(String selectedItem) {
+
+    tone_freq = false;
+    max_freq = false;
+    min_freq = false;
+    moy_freq = false;
+    
+    if (selectedItem.equals("Ton")) tone_freq = true;
+    if (selectedItem.equals("Maximum")) max_freq = true;
+    if (selectedItem.equals("Minimum")) min_freq = true;
+    if (selectedItem.equals("Moyenne")) moy_freq = true;
+    
+  }
 }

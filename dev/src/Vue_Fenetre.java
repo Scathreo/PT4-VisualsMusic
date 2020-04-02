@@ -123,12 +123,17 @@ public class Vue_Fenetre extends JFrame implements Observer {
 	 */
 	private JMenu menu_affichage;
 
-	/**  
-	 * Catégorie de la barre de menu
-	 * 
-	 * Quand on clique dessus, affiche la fenêtre des paramètres
-	 */
-	private JMenu menu_parametre;
+  /**  
+   * Catégorie de la barre de menu
+   * 
+   * Quand on clique dessus, affiche la fenêtre des paramètres
+   */
+  private JMenu menu_parametre;
+
+  /**  
+   * TODO
+   */
+  private JMenu menu_modeChooser;
 
 	/**
 	 * Actions de la catégorie "Affichage" de la barre de menu
@@ -302,6 +307,8 @@ public class Vue_Fenetre extends JFrame implements Observer {
 
 		menu_parametre = new JMenu("Paramètres");
 		
+		menu_modeChooser = new JMenu("Mode");
+		
 
 		//Modification des éléments
 		
@@ -318,7 +325,9 @@ public class Vue_Fenetre extends JFrame implements Observer {
 		menu_affichage_2D.addActionListener(new Controller_Menu(model));
 		menu_affichage_3D.addActionListener(new Controller_Menu(model));
 
-		menu_parametre.addMenuListener(new Controller_Menu(model));
+    menu_parametre.addMenuListener(new Controller_Menu(model));
+    
+    menu_modeChooser.addMenuListener(new Controller_Menu(model));
 		
 
 		//Ajout des éléments
@@ -334,7 +343,8 @@ public class Vue_Fenetre extends JFrame implements Observer {
 
 		menu.add(menu_fichier);
 		menu.add(menu_affichage);
-		menu.add(menu_parametre);
+    menu.add(menu_parametre);
+    menu.add(menu_modeChooser);
 
 	}
 

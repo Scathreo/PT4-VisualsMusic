@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Observable;
 
 import javax.sound.sampled.AudioFormat;
@@ -233,7 +234,13 @@ public class Model_Musique extends Observable implements Runnable {
 
 			double complexMax;
 			double complexMin;
-			double somme;
+      double somme;
+      double sommeMin;
+      double sommeMax;
+      double moyenne;
+      
+      int nbMax;
+      int nbMin;
 
 			byte bytes[] = new byte[audioFormat.getSampleSizeInBits()*1024];	//taille de l'echantillon * 1024
 			int bytesRead = 0;
@@ -263,25 +270,53 @@ public class Model_Musique extends Observable implements Runnable {
 					frequenceMin = 0;
 					frequenceMoy = 0;
 					somme = 0;
+					moyenne = 0;
 					
 					Complex[] tableau_complexe_temporaire = FFT.getTransformedDataAsComplex();
-
+					double[] tab_freq = new double[tableau_complexe_temporaire.length];
+					
 					for (int index_dans_tableau = 0; 
 							index_dans_tableau < tableau_complexe_temporaire.length;
 							index_dans_tableau ++) {
 
 						double complexTemporaire = Math.abs(tableau_complexe_temporaire[index_dans_tableau].getReal());
 						
-						if (complexMax < complexTemporaire) complexMax = complexTemporaire;
-						if (complexMin > complexTemporaire) complexMin = complexTemporaire; 
+						tab_freq[index_dans_tableau] = complexTemporaire;
 						
+//						if (complexMax < complexTemporaire) complexMax = complexTemporaire;
+//						if (complexMin > complexTemporaire) complexMin = complexTemporaire; 
+//						
 						somme += complexTemporaire;
 						
 					}
-
-					frequenceMax = complexMax;
-					frequenceMin = complexMin;
-					frequenceMoy = somme / (double) tableau_complexe_temporaire.length;
+					
+					moyenne = somme / (double) tableau_complexe_temporaire.length;
+					
+					Arrays.sort(tab_freq);
+					
+					nbMin = 0;
+					nbMax = 0;
+					
+					for (double d : tab_freq) {
+					  
+					  if (d < moyenne) { 
+					    
+					    nbMin ++;
+					    
+					  }
+					  else {
+					    
+					    nbMax ++;
+					    
+					  }
+					}
+					
+					frequenceMax = tab_freq[nbMin+nbMax/2];
+					frequenceMin = tab_freq[nbMin/2];
+					frequenceMoy = frequenceMin + frequenceMax / 2.0;
+          System.out.println("Min: "+ frequenceMin);
+          System.out.println("Max: "+ frequenceMax);
+          System.out.println("Moy: "+ frequenceMoy);
 
 					setChanged();
 					notifyObservers();

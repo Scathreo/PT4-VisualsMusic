@@ -16,10 +16,12 @@ public class Pricipale_VisualsMusic {
 		Model model = new Model();
 		
 		//partage du model pour les Controllers
-		Vue_Fenetre Frame = new Vue_Fenetre(model);
-		Vue_Parametre settings = new Vue_Parametre(model);
-		
-		model.addObserver(settings);
+		Vue_Fenetre frame = new Vue_Fenetre(model);
+    Vue_Parametre settings = new Vue_Parametre(model);
+    Vue_ChoixMode mode = new Vue_ChoixMode(model);
+
+    model.addObserver(settings);
+    model.addObserver(mode);
 		
 	}
 

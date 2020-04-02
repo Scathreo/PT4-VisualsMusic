@@ -107,13 +107,21 @@ public class Controller_Menu extends Controller implements ActionListener, MenuL
 
 		JMenu menu = (JMenu) arg0.getSource();
 
-		if (menu.getText().equals("Paramètres")) {
+    if (menu.getText().equals("Paramètres")) {
 
-			model.setPrintSettings(true);
+      model.setPrintSettings(true);
 
-			return;
+      return;
 
-		}
+    }
+    
+    if (menu.getText().equals("Mode")) {
+
+      model.setPrintModeChooser(true);
+
+      return;
+
+    }
 	}
 }
 

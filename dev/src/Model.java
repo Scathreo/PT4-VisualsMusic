@@ -19,16 +19,15 @@ import java.util.Observer;
  */
 public class Model extends Observable implements Observer {
 
-  //TODO
+  /**
+   * Volume maximal possible
+   */
   private static final int VOLUME_MAX = 200;
 
-  //TODO
+  /**
+   * Volume minimal possible
+   */
   private static final int VOLUME_MIN = 0;
-
-  //TODO
-  private static final int INDEX_PREMIER_FICHIER_DANS_LISTE = 0;
-
-  public static final int TONE_MODE = 100;
 
   /**
    * L'epaisseur des formes 2D et 3D
@@ -273,28 +272,44 @@ public class Model extends Observable implements Observer {
    */
   private int volume;
 
-  //TODO
+  /**
+   * Définis si oui ou non, les musiques doivent se lire en mode aléatoire
+   */
   private boolean random;
 
-  //TODO
+  /**
+   * L'index du fichier qui est en train d'être lu
+   */
   private int currentFileIndex;
 
-  //TODO
+  /**
+   * Définis si oui ou non, les musiques doivent se lire en boucle
+   */
   private boolean loop;
 
-  //TODO
+  /**
+   * Définis le mode en "Ton"
+   */
   private boolean tone_freq;
 
-  //TODO
+  /**
+   * Définis le mode en "Max"
+   */
   private boolean max_freq;
 
-  //TODO
+  /**
+   * Définis le mode en "Min"
+   */
   private boolean min_freq;
 
-  //TODO
+  /**
+   * Définis le mode en "Moy"
+   */
   private boolean moy_freq;
 
-  //TODO
+  /**
+   * Définis si l'application doit afficher la fenêtre de choix de mode
+   */
   private boolean printModeChooser;
 
   /**
@@ -336,8 +351,6 @@ public class Model extends Observable implements Observer {
 
   }
 
-  //TODO Play methode
-
   /**
    * Permet de lire un fichier audio tous en permettant de
    * garder la main sur l'application grâce au multithreading
@@ -367,7 +380,9 @@ public class Model extends Observable implements Observer {
     }
   }
 
-  //TODO
+  /**
+   * Met la liste de fichier à lire dans un ordre aléatoire
+   */
   private void setRandomList() {
 
     boolean processing = true;
@@ -400,7 +415,9 @@ public class Model extends Observable implements Observer {
 
   }
 
-  //TODO
+  /**
+   * Passe à la musique suivante
+   */
   public void next() {
 
     this.stop();	//currentFileIndex + 1
@@ -409,7 +426,10 @@ public class Model extends Observable implements Observer {
 
   }
 
-  //TODO
+
+  /**
+   * Passe à la musique précédente
+   */
   public void previous() {
 
     this.currentFileIndex -= 2;
@@ -472,10 +492,6 @@ public class Model extends Observable implements Observer {
       setErreur(new FileNotFoundException());
       return;
 
-    }
-
-    for (File f : fichiers) {
-      System.out.println(f.getPath());
     }
   }
 
@@ -673,7 +689,7 @@ public class Model extends Observable implements Observer {
   }
 
   /**
-   * TODO
+   * Check si l'app à besoin d'afficher la fenêtre du choix dde mode
    */
   public boolean isPrintModeChooser() {
 
@@ -693,7 +709,7 @@ public class Model extends Observable implements Observer {
   }
 
   /**
-   * TODO
+   * Permet de dire si oui ou non, l'application doit afficher la fenêtre de choix de mode
    */
   public void setPrintModeChooser(boolean print) {
 
@@ -703,7 +719,11 @@ public class Model extends Observable implements Observer {
 
   }
 
-  //TODO
+  /**
+   * Met en pause la musique si t est vrai
+   * Aussi notifie les vues d'un changement
+   * @param t un boolean
+   */
   private void printWindow (boolean t) {
 
     if (t)
@@ -1232,7 +1252,9 @@ public class Model extends Observable implements Observer {
 
   }
 
-  //TODO
+  /**
+   * Permet d'augmenter la musique et de voir le curseur bouger
+   */
   public void increaseVolume() {
 
     if (volume <= Model.VOLUME_MAX - 2)
@@ -1246,7 +1268,9 @@ public class Model extends Observable implements Observer {
 
   }
 
-  //TODO
+  /**
+   * Permet de diminuer la musique et de voir le curseur bouger
+   */
   public void decreaseVolume() {
 
     if (volume >= Model.VOLUME_MIN + 2)
@@ -1281,7 +1305,7 @@ public class Model extends Observable implements Observer {
   }
 
   /**
-   * TODO
+   * Check si la lecture est en mode random
    * @return the random
    */
   public boolean isRandom() {
@@ -1292,7 +1316,7 @@ public class Model extends Observable implements Observer {
   }
 
   /**
-   * TODO
+   * permet de définir si le mode random doit être activé
    * @param random the random to set
    */
   public void setRandom(boolean random) {

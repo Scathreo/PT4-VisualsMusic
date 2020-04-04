@@ -5,8 +5,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -17,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JSlider;
@@ -46,23 +43,23 @@ public class Vue_Fenetre extends JFrame implements Observer {
 	///////////////////////////////////////
 
 	/**
-	 * TODO
+	 * Bouton servant a passer a la musique suivante
 	 */	
 	private JButton bouton_next;
 
-	/**
-	 * TODO
-	 */	
+  /**
+   * Bouton servant a actibver le mode random
+   */ 
 	private JButton bouton_random;
 
 	/**
-	 * TODO
+	 * Bouton servant a activer le mode en boucle
 	 */	
 	private JButton bouton_loop;
 
-	/**
-	 * TODO
-	 */	
+  /**
+   * Bouton servant a passer a la musique précédente
+   */ 
 	private JButton bouton_previous;
 
 	/**
@@ -131,7 +128,9 @@ public class Vue_Fenetre extends JFrame implements Observer {
   private JMenu menu_parametre;
 
   /**  
-   * TODO
+   * Catégorie de la barre de menu
+   * 
+   * Quand on clique dessus, affiche la fenêtre de choix du mode
    */
   private JMenu menu_modeChooser;
 
@@ -163,9 +162,11 @@ public class Vue_Fenetre extends JFrame implements Observer {
 	 */
 	private JMenuItem menu_fichier_ouvrir;
 
-	/**
-	 * TODO
-	 */
+  /**
+   * Actions de la catégorie "Fichier" de la barre de menu
+   * 
+   * Permet d'ouvrir un dossier
+   */
 	private JMenuItem menu_dossier_ouvrir;
 
 	/**

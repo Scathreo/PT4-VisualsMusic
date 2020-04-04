@@ -4,7 +4,14 @@ import java.awt.event.WindowListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-//TODO
+/**
+ * Classe implémentant WindowListener
+ * Sert à mettre des action lors des fermeture des fenêtres
+ * 
+ * @author
+ * Goodwin
+ *  Création et implémentation de la classe entière
+ */
 public class Controller_Fenetre extends Controller implements WindowListener {
 
 	/**
@@ -18,21 +25,13 @@ public class Controller_Fenetre extends Controller implements WindowListener {
 
 	}
 
-	//TODO
-	public void windowActivated(WindowEvent arg0) {
+	/** Non implémenter */
+	public void windowActivated(WindowEvent arg0) {}
 
+  /** Non implémenter */
+	public void windowClosed(WindowEvent arg0) {}
 
-
-	}
-
-	//TODO
-	public void windowClosed(WindowEvent arg0) {
-
-
-
-	}
-
-	//TODO
+  /** Action lors de la fermeture d'une fenêtre */
 	public void windowClosing(WindowEvent arg0) {
 
 		JFrame frame = (JFrame) arg0.getSource();
@@ -87,32 +86,16 @@ public class Controller_Fenetre extends Controller implements WindowListener {
     }    
 	}
 
-	//TODO
-	public void windowDeactivated(WindowEvent arg0) {
+  /** Non implémenter */
+	public void windowDeactivated(WindowEvent arg0) {}
 
+  /** Non implémenter */
+	public void windowDeiconified(WindowEvent arg0) {}
 
+  /** Non implémenter */
+	public void windowIconified(WindowEvent arg0) {}
 
-	}
-
-	//TODO
-	public void windowDeiconified(WindowEvent arg0) {
-
-
-
-	}
-
-	//TODO
-	public void windowIconified(WindowEvent arg0) {
-
-
-
-	}
-
-	//TODO
-	public void windowOpened(WindowEvent arg0) {
-
-
-
-	}
+  /** Non implémenter */
+	public void windowOpened(WindowEvent arg0) {}
 
 }

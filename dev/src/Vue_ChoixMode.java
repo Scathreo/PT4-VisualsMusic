@@ -1,27 +1,16 @@
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 
 /**
  * Classe Définissant une fenetre essentiellement composé
@@ -36,12 +25,15 @@ import javax.swing.border.Border;
  */
 public class Vue_ChoixMode extends JFrame implements Observer {
 
-  //TODO
+  /**
+   * Liste des modes
+   */
   private String[] str_list = {
       "Maximum",
       "Minimum",
       "Moyenne",
-  "Ton"};
+      "Ton"
+  };
 
   /**
    * Toute l'interface
@@ -78,7 +70,9 @@ public class Vue_ChoixMode extends JFrame implements Observer {
    */
   private JLabel label_mode = new JLabel();
 
-  //TODO
+  /**
+   * Une liste de choix renfermant les modes
+   */
   private JComboBox<String> select_list = new JComboBox<String>(str_list);
 
   /**
@@ -164,7 +158,7 @@ public class Vue_ChoixMode extends JFrame implements Observer {
               + "<br/>"
               + "L'affichage est plus coloré que les autres et parrait plus complet"
               + "</div> </html>";
-          
+
           label_mode.setText(str);
 
         }
@@ -191,7 +185,7 @@ public class Vue_ChoixMode extends JFrame implements Observer {
               + "<br/>"
               + "L'affichage n'est pas linéaire, on a donc un aspect de relief"
               + "</div> </html>";
-          
+
           label_mode.setText(str);
 
         }
@@ -218,7 +212,7 @@ public class Vue_ChoixMode extends JFrame implements Observer {
               + "<br/>"
               + "L'affichage n'est pas linéaire, on a donc un aspect de relief"
               + "</div> </html>";
-          
+
           label_mode.setText(str);
 
         }
@@ -245,7 +239,7 @@ public class Vue_ChoixMode extends JFrame implements Observer {
               + "<br/>"
               + "L'affichage est pas linéaire, on ne distingue aucune fréquence particulière"
               + "</div> </html>";
-          
+
           label_mode.setText(str);
 
         }

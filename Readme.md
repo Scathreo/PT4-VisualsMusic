@@ -1,88 +1,94 @@
-# Project Title
+===============================================================================
+################################ Visuals Music ################################
+===============================================================================
 
-One Paragraph of project description goes here
 
-## Getting Started
+================================
+########### Exécution ##########
+================================
+Pour exécuter :
+Lancer le fichier "VisualsMusic.jar"
+Ou "java -jar VisualsMusic.jar"
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
 
-What things you need to install the software and how to install them
+================================
+########### Ajouts #############
+================================
+Correction erreur lors de la fermeture d'une fenêtre. (Fermeture si on appuyait
+sur "oui" ou "non")
+Raccourcis clavier "+" et "-" afin de modifier le volume
+Bouton Précédent
+Bouton Suivant
+Bouton Random
+Bouton Loop
+Possibilité d'ouvrir un dossier
+Lecture des fichier dans une liste (tableau) permettant l'utilisation des
+boutons précédemment cité
+Signe d'activation d'un des boutons (vert et rouge, si activé ou non)
+Affichage 3D sur une ligne (2 suivant le mode)
+Fenêtre de choix de mode de visualisation
+Mode de visualisation
+  Analyse des fréquences : 
+    Prend toutes les fréquences d'un son,
+    Triage par valeurs croissante,
+    Séparation en deux par rapport à la moyenne des valeur.
+      1ere partie : valeurs minimales, 2eme partie : valeurs maximales
+  Max : Prend la médiane de la 2eme partie
+  Min : Prend la médiane de la 1ere partie
+  Moy : Prend la moyenne entre la somme du Max et du Min (voir plus haut)
+  Ton : Prend le Min et le Max en même temps (voir plus haut)
+Passage des fréquence entre Vue et Model grâce à un tableau
+  Dans le cas du Ton (voir plus haut), j'ai besoin de deux valeur en même temps
 
-```
-Give examples
-```
 
-### Installing
 
-A step by step series of examples that tell you how to get a development env running
+================================
+########### Tests ##############
+================================
+Mode de visualisation
+  Analyse des fréquences : 
+    Prend toutes les fréquences d'un son,
+    Triage par valeurs croissante,
+    Séparation en deux par rapport à la moyenne des valeur.
+      1ere partie : valeurs minimales, 2eme partie : valeurs maximales
+  Max : Prend la médiane de la 2eme partie
+  Min : Prend la médiane de la 1ere partie
+  Moy : Prend la moyenne entre la somme du Max et du Min (voir plus haut)
+  Ton : Prend le Min et le Max en même temps (voir plus haut)
+Passage des fréquence entre Vue et Model grâce à un tableau
+  Dans le cas du Ton (voir plus haut), j'ai besoin de deux valeur en même temps
 
-Say what the step will be
+=>
 
-```
-Give the example
-```
+Au début, j'ai fait :
+  Max : Prend la fréquence maximale d'un son
+  Min : Prend la fréquence minimale d'un son
+  Moy : Prend la fréquence moyenne d'un son
+  Ton : Prend le Min et le Max en même temps (voir plus haut)
+L'affichage était correcte et réprésentatif des noms des modes. Cependant, lors
+de l'affichage de la valeur minimale, la barre (2D) se confondait avec la
+droite au centre de l'écran. Donc pour y voir plus clair, j'ai affiché le ratio
+fréquence/taille de la fenêtre. C'était des valeurs de type 10^-n, avec n
+souvent plus grand que 5. Donc quasi égales à 0.
+Pour contrer ce problème j'ai essayer de supprimer le ratio pour la valeur Min.
+Par contre des fois la valeur Min était supérieur au ratio de la valeur Max.
+Donc totalement incohérent.
+Je me suis donc dis que j'allais séparer les valeur en deux par rapport à la 
+moyenne, puis que j'allais prendre la moyenne des deux parties. Sur le papier
+c'était une bonne idée, malheureusement l'affichage du Min était encore trop 
+proche de 0, vue que la majorité des valeurs de la 1ere parties sont en 
+puissances de 10^-n
+C'est à ce moment là que je me suis dis que j'allais prendre la médianne.
+Malheureusement avec cette technique je perds l'aspect de relief. Une solution
+aurait été de garder l'ancienne technique pour le Max, et de faire différement
+pour le Min. Cependant je n'ai pas voulu perdre en cohérence entre des modes
+relativement proche entre eux (juste une histoire d'opposé).
 
-And repeat
 
-```
-until finished
-```
 
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
-
+================================
+########### Remerciements ######
+================================
+Merci de votre aide tout au long du PT3 et 4. 
+A +

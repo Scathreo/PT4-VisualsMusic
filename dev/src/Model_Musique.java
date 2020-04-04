@@ -232,11 +232,11 @@ public class Model_Musique extends Observable implements Runnable {
 
 		try {
 
-			double complexMax;
-			double complexMin;
+//			double complexMax;
+//			double complexMin;
       double somme;
-      double sommeMin;
-      double sommeMax;
+//      double sommeMin;
+//      double sommeMax;
       double moyenne;
       
       int nbMax;
@@ -264,8 +264,8 @@ public class Model_Musique extends Observable implements Runnable {
 					FFT.setData(comp);
 					FFT.transform();
 
-					complexMax = Double.MIN_VALUE;
-					complexMin = Double.MAX_VALUE;
+//					complexMax = Double.MIN_VALUE;
+//					complexMin = Double.MAX_VALUE;
 					frequenceMax = 0;
 					frequenceMin = 0;
 					frequenceMoy = 0;
@@ -314,9 +314,6 @@ public class Model_Musique extends Observable implements Runnable {
 					frequenceMax = tab_freq[nbMin+nbMax/2];
 					frequenceMin = tab_freq[nbMin/2];
 					frequenceMoy = frequenceMin + frequenceMax / 2.0;
-          System.out.println("Min: "+ frequenceMin);
-          System.out.println("Max: "+ frequenceMax);
-          System.out.println("Moy: "+ frequenceMoy);
 
 					setChanged();
 					notifyObservers();

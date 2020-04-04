@@ -81,32 +81,43 @@ public class Forme_Cube implements GLEventListener {
   private double[] hauteur_background;
 
   /**
-   * position X du premier cube
+   * position X de la première colonne
    */
   private double cube1_posX = -4;
 
   /**
-   * position X du deuxieme cube
+   * position X de la deuxieme colonne
    */
   private double cube2_posX =  -1.5;
 
   /**
-   * position X du troisieme cube
+   * position X de la troisieme colonne
    */
   private double cube3_posX = 1.5;
 
   /**
-   * position X du quatrieme cube
+   * position X de la quatrieme colonne
    */
   private double cube4_posX = 4;
-
-  //TODO
+  
+  /**
+   * position Y de la première ligne
+   */
   private double cube_ligne1_Y = -4;
-  //TODO
+  
+  /**
+   * position Y de la deuxieme ligne
+   */
   private double cube_ligne2_Y = -4;
-  //TODO
+  
+  /**
+   * position Z de la première ligne
+   */
   private double cube_ligne1_Z = -14;
-  //TODO
+  
+  /**
+   * position Z de la première ligne
+   */
   private double cube_ligne2_Z = -20;
 
   /**
